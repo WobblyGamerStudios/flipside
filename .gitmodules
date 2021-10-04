@@ -4,3 +4,6 @@
 [submodule "Assets/wgs-locomotion"]
 	path = Assets/wgs-locomotion
 	url = git@github.com:WobblyGamerStudios/wgs-locomotion.git
+[submodule "Assets/wgs-locomotion-third-person"]
+	path = Assets/wgs-locomotion-third-person
+	url = git@github.com:WobblyGamerStudios/wgs-locomotion-third-person.git

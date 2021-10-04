@@ -1,1 +1,71 @@
-{}
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "0aeecb9d-718a-40bb-aa1d-8393b73b1604",
+            "actions": [
+                {
+                    "name": "MouseOrbit",
+                    "type": "Value",
+                    "id": "bbf78537-4c21-4d04-a255-9fe77f79857b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ControllerOrbit",
+                    "type": "Value",
+                    "id": "3a2581ea-5d18-4494-b158-0d5fa182cc05",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LeftAxis",
+                    "type": "Value",
+                    "id": "2e4c211d-18c1-4eba-a845-9a6ed0df1181",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f981fe32-9c37-44fd-a974-40276778bbbe",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseOrbit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2adc5b6-ed07-4369-9c27-56c584ab6187",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControllerOrbit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f61c1af5-993e-4264-95ee-35955bdcc062",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
