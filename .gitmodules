@@ -1,0 +1,6 @@
+[submodule "Assets/wgs-core"]
+	path = Assets/wgs-core
+	url = git@github.com:WobblyGamerStudios/wgs-core.git
+[submodule "Assets/wgs-locomotion"]
+	path = Assets/wgs-locomotion
+	url = git@github.com:WobblyGamerStudios/wgs-locomotion.git
