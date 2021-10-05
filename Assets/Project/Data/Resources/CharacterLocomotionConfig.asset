@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7373972469512824457
+--- !u!114 &-2461123365970657069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,12 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5174e4aaedb1d41817f9dadf3a2ecb, type: 3}
-  m_Name: GroundMovementModifier
+  m_Script: {fileID: 11500000, guid: a48a88907a8ef5343a5a136c4ee253d9, type: 3}
+  m_Name: MovementModifier
   m_EditorClassIdentifier: 
-  Speed: 3
+  MoveSpeed: 3.5
   Friction: 20
---- !u!114 &-884724334463231333
+  SprintSpeed: 6
+  SprintAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Sprint
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: a2b72da2-6990-4d45-8f97-29ace6cecc65
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -5941093166328420042, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+--- !u!114 &-1134904906373368586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0a176f1d8e2f743b8937b99b009ca5, type: 3}
   m_Name: CharacterLocomotionConfig
   m_EditorClassIdentifier: 
-  _slopeLimit: 45
+  _slopeLimit: 60
   _stepOffset: 0.3
   _skinWidth: 0.0001
   _minMoveDistance: 0.001
@@ -52,5 +64,5 @@ MonoBehaviour:
     m_Bits: 55
   _modifiers:
     _values:
-    - Modifier: {fileID: -884724334463231333}
-    - Modifier: {fileID: -7373972469512824457}
+    - Modifier: {fileID: -2461123365970657069}
+    - Modifier: {fileID: -1134904906373368586}
