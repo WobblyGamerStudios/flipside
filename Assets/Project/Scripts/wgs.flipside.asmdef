@@ -1,0 +1,20 @@
+{
+    "name": "wgs.flipside",
+    "rootNamespace": "Wgs.Flipside",
+    "references": [
+        "GUID:8e85ea045f204414b8d398ddafaf067b",
+        "GUID:ee83963c4dd36f7479da898947b9d482",
+        "GUID:057e79f1aa05a3046b4e35306d242283",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
