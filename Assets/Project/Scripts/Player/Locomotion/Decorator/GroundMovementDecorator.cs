@@ -3,19 +3,13 @@ using Wgs.Locomotion;
 
 namespace Wgs.FlipSide
 {
-	public class GroundMovementDecorator : MonoBehaviour, ILocomotionDecorator
+	public class GroundMovementDecorator : LocomotionDecorator
 	{
-		public GroundMovementModifier Modifier { get; private set; }
-		public CharacterLocomotion Locomotion { get; private set; }
-		public bool IsSprinting { get; private set; }
+		public GroundMovementModifier GroundMovementModifier => Modifier as GroundMovementModifier;
 		
-		public void Setup(LocomotionModifier modifier, CharacterLocomotion locomotion)
-		{
-			Modifier = modifier as GroundMovementModifier;
-			Locomotion = locomotion;
-		}
+		public bool IsSprinting { get; private set; }
 
-		public void Modify(ref Vector3 velocity)
+		public override void Modify(ref Vector3 velocity)
 		{
 			if (IsSprinting && (Locomotion.MoveDirection.magnitude < 0.9f || !Locomotion.IsGrounded))
 			{
@@ -24,15 +18,15 @@ namespace Wgs.FlipSide
 			
 			if (!Locomotion.IsGrounded) return;
             
-			if (Modifier.SprintAction.action.triggered)
+			if (GroundMovementModifier.SprintAction.action.triggered)
 			{
 				IsSprinting = true;
 			}
 			
-			Vector3 targetVel = Locomotion.MoveDirection * (IsSprinting ? Modifier.SprintSpeed : Modifier.MoveSpeed);
+			Vector3 targetVel = Locomotion.MoveDirection * (IsSprinting ? GroundMovementModifier.SprintSpeed : GroundMovementModifier.MoveSpeed);
 			targetVel = GetDirectionTangentToSurface(targetVel.normalized, Locomotion.GroundNormal) * targetVel.magnitude;
 
-			velocity = Vector3.Lerp(velocity, targetVel, Modifier.Friction * Time.deltaTime);
+			velocity = Vector3.Lerp(velocity, targetVel, GroundMovementModifier.Friction * Time.deltaTime);
 		}
 		
 		// Gets a reoriented direction that is tangent to a given slope

@@ -12,7 +12,6 @@ namespace Wgs.Locomotion
         [SerializeField] private CharacterLocomotion _characterLocomotion;
         
         private Animator _animator;
-        private GroundMovementDecorator _groundMovement;
         
         private void OnValidate()
         {
@@ -26,7 +25,6 @@ namespace Wgs.Locomotion
 
         private void Start()
         {
-            _groundMovement = _characterLocomotion.GetComponent<GroundMovementDecorator>();
         }
 
         private void LateUpdate()
@@ -34,7 +32,7 @@ namespace Wgs.Locomotion
             if (!_characterLocomotion) return;
             
             _animator.SetFloat("Forward", _characterLocomotion.MoveDirection.magnitude);
-            _animator.SetBool("IsSprinting", _groundMovement != null && _groundMovement.IsSprinting);
+            _animator.SetBool("IsSprinting", _characterLocomotion.TryGetDecorator(out GroundMovementDecorator groundDecorator) && groundDecorator.IsSprinting);
         }
     }
 }
