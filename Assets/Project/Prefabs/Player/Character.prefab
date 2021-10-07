@@ -290,8 +290,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2155027857874140324}
   - component: {fileID: 5406605161446860510}
-  - component: {fileID: 1631396837168047647}
   - component: {fileID: 9212062727150289694}
+  - component: {fileID: 5902759972689863105}
   m_Layer: 0
   m_Name: Amy
   m_TagString: Untagged
@@ -334,19 +334,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1631396837168047647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631396837168047646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9ec3d43bcdabe4fb13f52f48e44694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterLocomotion: {fileID: 6106489963935937279}
 --- !u!114 &9212062727150289694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +348,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Animator: {fileID: 5406605161446860510}
   _ActionOnDisable: 0
+--- !u!114 &5902759972689863105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631396837168047646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6867ca09453503942be308b5d56bbd91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterLocomotion: {fileID: 6106489963935937279}
+  _moveState: {fileID: 7069605127093797414}
+  _crouchState: {fileID: 1747327711914052604}
 --- !u!1 &1764752918433274121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1045,50 @@ Transform:
   m_Father: {fileID: 2919917319797000356}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3798080533599529567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138872400256341065}
+  - component: {fileID: 7069605127093797414}
+  m_Layer: 0
+  m_Name: LocomotionState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1138872400256341065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798080533599529567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6670767545508133280}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7069605127093797414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798080533599529567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01149ec46238ff4f9cb31fffaa0b388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkMixerTransitionAsset: {fileID: 11400000, guid: 1fbd8806724fbec4fbd74606914cd0c7, type: 2}
 --- !u!1 &3807737037296811721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,6 +1464,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2155027857874140324}
+  - {fileID: 6670767545508133280}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1494,6 +1541,38 @@ Transform:
   - {fileID: 3912634876153068882}
   m_Father: {fileID: 7562248331051330727}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6373914433326730314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6670767545508133280}
+  m_Layer: 0
+  m_Name: States
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6670767545508133280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373914433326730314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1138872400256341065}
+  - {fileID: 7896387575347373395}
+  m_Father: {fileID: 6106489963935937278}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6466510558540969479
 GameObject:
@@ -2319,3 +2398,47 @@ Transform:
   m_Father: {fileID: 4615906638339835741}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9127243346052928909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7896387575347373395}
+  - component: {fileID: 1747327711914052604}
+  m_Layer: 0
+  m_Name: CrouchState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7896387575347373395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127243346052928909}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6670767545508133280}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1747327711914052604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127243346052928909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01149ec46238ff4f9cb31fffaa0b388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkMixerTransitionAsset: {fileID: 11400000, guid: 28f0add45da2a9b4f9e8a05d29064eb0, type: 2}

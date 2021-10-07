@@ -753,7 +753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481664832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6999567, y: 1.1920187, z: -3}
+  m_LocalPosition: {x: 0.6392019, y: 1.1920187, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1229520808}
@@ -1180,6 +1180,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4166737424974280, guid: c77201b26fc729742973d2d4e601743f, type: 3}
   m_PrefabInstance: {fileID: 2079091463}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &792078085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6106489963935937279, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+  m_PrefabInstance: {fileID: 6106489962916446290}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07bcc3cd1eb5bb4f97506065aa2145b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &794359520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3551,6 +3562,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1747327711914052604, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _linearMixerTransitionAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 28f0add45da2a9b4f9e8a05d29064eb0, type: 2}
+    - target: {fileID: 3798080533599529567, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: m_Name
+      value: MoveState
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902759972689863105, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _characterLocomotion
+      value: 
+      objectReference: {fileID: 792078085}
     - target: {fileID: 6106489963935937272, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
       propertyPath: m_Name
       value: Character
@@ -3603,6 +3626,50 @@ PrefabInstance:
       propertyPath: _cameraTransform
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: run
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: 073834061adf1a741bec9054b6e614c0, type: 3}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: idle
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: 6293176244bd5af49815ba491b81810e, type: 3}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: walk
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: c38be1fba896af143bc3878d2ebf7818, type: 3}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _linearMixerTransitionAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1fbd8806724fbec4fbd74606914cd0c7, type: 2}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._Speeds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _crouchMixerTransition._Animations.Array.data[2]
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: 1cf115957dee8f245adde7e58c8ce6d5, type: 3}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._SynchronizeChildren.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._Events._NormalizedTimes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._Events._NormalizedTimes.Array.data[0]
+      value: 0.20889558
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069605127093797414, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
+      propertyPath: _walkMixerTransition._Events._NormalizedTimes.Array.data[1]
+      value: NaN
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8450971f94aa40048ac18f9fe0514367, type: 3}
 --- !u!1001 &8086435764589690936
