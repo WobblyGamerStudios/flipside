@@ -363,6 +363,7 @@ MonoBehaviour:
   _characterLocomotion: {fileID: 6106489963935937279}
   _moveState: {fileID: 7069605127093797414}
   _crouchState: {fileID: 1747327711914052604}
+  _sprintState: {fileID: 3955053281924369806}
 --- !u!1 &1764752918433274121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1057,7 @@ GameObject:
   - component: {fileID: 1138872400256341065}
   - component: {fileID: 7069605127093797414}
   m_Layer: 0
-  m_Name: LocomotionState
+  m_Name: MoveState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1088,7 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01149ec46238ff4f9cb31fffaa0b388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkMixerTransitionAsset: {fileID: 11400000, guid: 1fbd8806724fbec4fbd74606914cd0c7, type: 2}
+  _linearMixerTransitionAsset: {fileID: 11400000, guid: 1fbd8806724fbec4fbd74606914cd0c7, type: 2}
 --- !u!1 &3807737037296811721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,6 +1340,58 @@ Transform:
   m_Father: {fileID: 750437659760653827}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5579947747949830905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934616786034575575}
+  - component: {fileID: 3955053281924369806}
+  m_Layer: 0
+  m_Name: SprintState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1934616786034575575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579947747949830905}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6670767545508133280}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3955053281924369806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579947747949830905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfd971aee5795640801d77838b22d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clipTransition:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: be8a80fbb16b54248b603e20185eb19d, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
 --- !u!1 &5712901710706044868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,13 +1532,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.5
-  m_Radius: 0.25
+  m_Height: 2
+  m_Radius: 0.2
   m_SlopeLimit: 60
-  m_StepOffset: 0.3
+  m_StepOffset: 0.2
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &6106489963935937279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: ea910dad168f8d14a905d97ce36cd15a, type: 2}
   _cameraTransform: {fileID: 0}
+  _lookSpeed: 20
   _moveAction:
     m_UseReference: 1
     m_Action:
@@ -1571,6 +1625,7 @@ Transform:
   m_Children:
   - {fileID: 1138872400256341065}
   - {fileID: 7896387575347373395}
+  - {fileID: 1934616786034575575}
   m_Father: {fileID: 6106489963935937278}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2441,4 +2496,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01149ec46238ff4f9cb31fffaa0b388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkMixerTransitionAsset: {fileID: 11400000, guid: 28f0add45da2a9b4f9e8a05d29064eb0, type: 2}
+  _linearMixerTransitionAsset: {fileID: 11400000, guid: 28f0add45da2a9b4f9e8a05d29064eb0, type: 2}

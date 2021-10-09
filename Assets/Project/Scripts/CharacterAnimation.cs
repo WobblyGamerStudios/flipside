@@ -31,8 +31,8 @@ namespace Wgs.Locomotion
         {
             if (!_characterLocomotion) return;
             
-            _animator.SetFloat("Forward", _characterLocomotion.MoveDirection.magnitude);
-            _animator.SetBool("IsSprinting", _characterLocomotion.TryGetDecorator(out GroundMovementDecorator groundDecorator) && groundDecorator.IsSprinting);
+            // _animator.SetFloat("Forward", _characterLocomotion.MoveDirection.magnitude);
+            // _animator.SetBool("IsSprinting", _characterLocomotion.TryGetDecorator(out MoveDecorator groundDecorator) && groundDecorator.IsSprinting);
         }
     }
 }

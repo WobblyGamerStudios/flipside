@@ -4,22 +4,24 @@ using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public class LinearState : AnimationState
+    public class FlipSideLinearState : AnimationState
     {
         [SerializeField, InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)] 
         private LinearMixerTransitionAsset _linearMixerTransitionAsset;
 
+        public new FlipSideStateMachineProcessor StateMachineProcessor => base.StateMachineProcessor as FlipSideStateMachineProcessor; 
+        
         public override void OnEnterState()
         {
             base.OnEnterState();
 
-            _stateMachineProcessor.AnimancerComponent.Play(_linearMixerTransitionAsset.Transition);
+            StateMachineProcessor.AnimancerComponent.Play(_linearMixerTransitionAsset.Transition);
         }
 
         public override void Tick()
         {
             if (!IsInitialized || !IsActive) return;
-            _linearMixerTransitionAsset.Transition.State.Parameter = _stateMachineProcessor.CharacterLocomotion.MoveDirection.magnitude;
+            _linearMixerTransitionAsset.Transition.State.Parameter = StateMachineProcessor.CharacterLocomotion.MoveDirection.magnitude;
         }
     }
 }

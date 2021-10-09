@@ -8,11 +8,11 @@ namespace Wgs.FlipSide
         public bool IsInitialized { get; private set; }
         public bool IsActive { get; protected set; }
 
-        protected StateMachineProcessor _stateMachineProcessor;
+        public StateMachineProcessor StateMachineProcessor { get; protected set; }
 
         public virtual void Initialize(StateMachineProcessor processor)
         {
-            _stateMachineProcessor = processor;
+            StateMachineProcessor = processor;
             IsInitialized = true;
         }
 
@@ -25,13 +25,13 @@ namespace Wgs.FlipSide
 
         public virtual void OnEnterState()
         {
-            if (!_stateMachineProcessor) return;
+            if (!StateMachineProcessor) return;
             IsActive = true;
         }
 
         public virtual void OnExitState()
         {
-            if (!_stateMachineProcessor) return;
+            if (!StateMachineProcessor) return;
             IsActive = false;
         }
         
