@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a472a4806da7f9147a4a5cd7eee170df, type: 3}
-  m_Name: MoveLinearMixerTransition
+  m_Script: {fileID: 11500000, guid: 1c801648a934e814f930c2aeaa609bf7, type: 3}
+  m_Name: CrouchMixerTransition
   m_EditorClassIdentifier: 
   _Transition:
     id: 0
   references:
     version: 1
     00000000:
-      type: {class: LinearMixerTransition, ns: Animancer, asm: Animancer}
+      type: {class: RootMotionLinearMixerTransition, ns: Wgs.FlipSide, asm: wgs.flipside}
       data:
         _FadeDuration: 0.25
         _Events:
@@ -26,14 +26,13 @@ MonoBehaviour:
           _Names: []
         _Speed: 1
         _Animations:
-        - {fileID: -203655887218126122, guid: 6293176244bd5af49815ba491b81810e, type: 3}
-        - {fileID: -203655887218126122, guid: c38be1fba896af143bc3878d2ebf7818, type: 3}
-        - {fileID: -203655887218126122, guid: 073834061adf1a741bec9054b6e614c0, type: 3}
+        - {fileID: -203655887218126122, guid: 5ec12866e26a0674dae776122cdd74f8, type: 3}
+        - {fileID: -203655887218126122, guid: b2598e126c96c6f4396a6a02f8727171, type: 3}
         _Speeds: []
         _SynchronizeChildren: 
         _Thresholds:
         - 0
-        - 0.5
         - 1
         _DefaultParameter: 0
         _ExtrapolateSpeed: 1
+        _applyRootMotion: 1

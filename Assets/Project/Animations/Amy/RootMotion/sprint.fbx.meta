@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be8a80fbb16b54248b603e20185eb19d
+guid: 9ea1151cc02582d4580a25a12217e770
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -26,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -41,7 +41,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 13
       wrapMode: 0
-      orientationOffsetY: -1.8
+      orientationOffsetY: -0.1
       level: 0
       cycleOffset: 0
       loop: 0

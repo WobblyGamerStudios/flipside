@@ -1,23 +1,22 @@
+using Animancer;
 using Animancer.FSM;
 using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public abstract class AnimationState : MonoBehaviour, IState
+    public abstract class CharacterState : MonoBehaviour, IState
     {
         public bool IsInitialized { get; private set; }
         public bool IsActive { get; protected set; }
 
-        public StateMachineProcessor StateMachineProcessor { get; protected set; }
-
-        public virtual void Initialize(StateMachineProcessor processor)
+        protected AnimancerComponent _animancer;
+        
+        public virtual void Initialize(AnimancerComponent animancer)
         {
-            StateMachineProcessor = processor;
+            _animancer = animancer;
             IsInitialized = true;
         }
 
-        public abstract void Tick();
-        
         #region IState
         
         public virtual bool CanEnterState => true;
@@ -25,13 +24,11 @@ namespace Wgs.FlipSide
 
         public virtual void OnEnterState()
         {
-            if (!StateMachineProcessor) return;
             IsActive = true;
         }
 
         public virtual void OnExitState()
         {
-            if (!StateMachineProcessor) return;
             IsActive = false;
         }
         
