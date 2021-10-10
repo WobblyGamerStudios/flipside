@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace Wgs.FlipSide
 {
     [RequireComponent(typeof(CharacterController))]
-    public class FlipSideCharacterController : Character
+    public partial class FlipSideCharacter : Character
     {
         [SerializeField] private LayerMask _traversableLayers = -1;
         [SerializeField] private float _checkDistance = 0.1f;
@@ -16,7 +16,6 @@ namespace Wgs.FlipSide
         [SerializeField] private float _speedMultiplier;
         [SerializeField] private float _airAcceleration = 20;
         [SerializeField] private float _maxAirSpeed = 3;
-        [SerializeField] private Sprinting _sprinting;
         
         [Title("Animation States")] 
         [SerializeField] private LinearState _moveState;
@@ -49,7 +48,8 @@ namespace Wgs.FlipSide
             _moveState.Initialize(Animancer);
             _crouchState.Initialize(Animancer);
             _fallState.Initialize(Animancer);
-            _sprinting.Initialize(this);
+            
+            Initialize();
             
             TrySetState(_moveState);
         }
@@ -71,6 +71,7 @@ namespace Wgs.FlipSide
                     break;
             }
             
+            Process();
             ProcessInput();
             ProcessState();
             
@@ -87,6 +88,9 @@ namespace Wgs.FlipSide
         }
 
         #endregion MonoBeahviour
+        
+        partial void Initialize();
+        partial void Process();
 
         protected override void FindDependencies()
         {
@@ -136,7 +140,6 @@ namespace Wgs.FlipSide
         private void ProcessInput()
         {
             IsCrouching = _crouchAction.action.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint;
-            if (_sprinting) _sprinting.Process();
         }
 
         private void ProcessState()
@@ -153,7 +156,7 @@ namespace Wgs.FlipSide
                 TrySetState(_crouchState);
             }
 
-            if (_sprinting.IsSprinting || IsCrouching) return;
+            if (IsSprinting || IsCrouching) return;
             
             TrySetState(_moveState);
         }

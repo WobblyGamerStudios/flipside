@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 namespace Wgs.FlipSide
 {
-    public class Sprinting : MonoBehaviour
+    public partial class FlipSideCharacter
     {
+        [Title("Sprinting")]
         [SerializeField] private ClipState _sprintState;
         [SerializeField, Range(0, 1)] private float _sprintThreshold = 0.9f;
         [SerializeField, SuffixLabel("Seconds", true)] private float _sprintDuration = 1;
@@ -19,24 +20,20 @@ namespace Wgs.FlipSide
         
         public bool IsSprinting { get; private set; }
 
-        private FlipSideCharacterController _characterController;
-        
-        public void Initialize(FlipSideCharacterController characterController)
+        partial void Initialize()
         {
-            _characterController = characterController;
-
-            _sprintState.Initialize(characterController.Animancer);
+            _sprintState.Initialize(Animancer);
 
             _lastEndTime = -_sprintCooldown;
         }
 
-        public void Process()
+        partial void Process()
         {
             if (HasStarted())
             {
                 IsSprinting = true;
                 _lastStartTime = Time.time;
-                _characterController.TrySetState(_sprintState);
+                TrySetState(_sprintState);
                 return;
             }
 
@@ -53,8 +50,8 @@ namespace Wgs.FlipSide
             return !IsSprinting &&
                    _sprintAction.action.triggered &&
                    Time.time - _lastEndTime >= _sprintCooldown &&
-                   _characterController.MoveDirection.magnitude > _sprintThreshold &&
-                   _characterController.IsGrounded;
+                   MoveDirection.magnitude > _sprintThreshold &&
+                   IsGrounded;
         }
 
         private bool HasEnded()
@@ -62,8 +59,8 @@ namespace Wgs.FlipSide
             return IsSprinting && 
                    (Time.time - _lastStartTime >= _sprintDuration ||
                     _sprintAction.action.triggered ||
-                    _characterController.MoveDirection.magnitude <= _sprintThreshold ||
-                    !_characterController.IsGrounded);
+                    MoveDirection.magnitude <= _sprintThreshold ||
+                    !IsGrounded);
         }
     }
 }
