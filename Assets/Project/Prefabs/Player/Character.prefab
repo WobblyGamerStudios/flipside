@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1048837008966185493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3892775860104618244}
+  - component: {fileID: 4256847055246797167}
+  m_Layer: 0
+  m_Name: JumpState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3892775860104618244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048837008966185493}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1602256396260312403}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4256847055246797167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048837008966185493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2144706bf621f4439722e60634791aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clipTransition: {fileID: 11400000, guid: 48ca717ff8d96d6478af0ac65d1e2de5, type: 2}
 --- !u!1 &1602256396206741188
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +167,7 @@ Transform:
   - {fileID: 1602256398065937003}
   - {fileID: 1602256396532543074}
   - {fileID: 1602256397333369898}
+  - {fileID: 3892775860104618244}
   m_Father: {fileID: 1602256397452411555}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1476,20 +1521,9 @@ MonoBehaviour:
   _speedMultiplier: 0.3
   _airAcceleration: 20
   _maxAirSpeed: 3
-  _moveState: {fileID: 1602256398101641263}
-  _crouchState: {fileID: 1602256398065937002}
   _fallState: {fileID: 1602256396532543073}
-  _moveAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Move
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: dadbf6be-216f-4968-bb28-fe2f4cc91003
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 2620825069234744408, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _minFallDistance: 1
+  _crouchState: {fileID: 1602256398065937002}
   _crouchAction:
     m_UseReference: 1
     m_Action:
@@ -1501,6 +1535,32 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _jumpState: {fileID: 4256847055246797167}
+  _jumpPower: 5
+  _groundCheckDelay: 0.5
+  _jumpAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Jump
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 033b2663-e000-4882-b9f4-c3f72c975cc4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -6273983711228334387, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _moveState: {fileID: 1602256398101641263}
+  _moveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: dadbf6be-216f-4968-bb28-fe2f4cc91003
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 2620825069234744408, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _sprintState: {fileID: 1602256397333369897}
   _sprintThreshold: 0.9
   _sprintDuration: 3

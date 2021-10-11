@@ -7,7 +7,7 @@ namespace Wgs.FlipSide
     public class ClipState : CharacterState
     {
         [SerializeField, InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)] 
-        private ClipTransitionAsset _clipTransition;
+        protected ClipTransitionAsset _clipTransition;
 
         public override void OnEnterState()
         {

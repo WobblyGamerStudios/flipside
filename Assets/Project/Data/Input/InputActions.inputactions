@@ -38,15 +38,15 @@
                     "interactions": "Press"
                 },
                 {
-                    "name": "North",
+                    "name": "NorthPress",
                     "type": "Button",
                     "id": "829fcca6-9d7d-4d5b-922a-fb366a70ecd1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=1)"
                 },
                 {
-                    "name": "East",
+                    "name": "EastHold",
                     "type": "Button",
                     "id": "7ace3b88-5015-44e9-b1c3-fe010f63704f",
                     "expectedControlType": "Button",
@@ -54,20 +54,20 @@
                     "interactions": ""
                 },
                 {
-                    "name": "South",
+                    "name": "SouthPress",
                     "type": "Button",
                     "id": "3ec80f2e-cb7e-4834-85e7-2965f4f5324e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=1)"
                 },
                 {
-                    "name": "West",
+                    "name": "WestPress",
                     "type": "Button",
                     "id": "086eeaaa-2a5d-4af6-bfa9-968d45cfe31b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "North",
+                    "action": "NorthPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -133,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "South",
+                    "action": "SouthPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -144,7 +144,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "West",
+                    "action": "WestPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "East",
+                    "action": "EastHold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

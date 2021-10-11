@@ -15,49 +15,42 @@ namespace Wgs.FlipSide
         [SerializeField, SuffixLabel("Seconds", true)] private float _sprintCooldown = 0.5f;
         [SerializeField] private InputActionProperty _sprintAction;
 
-        private float _lastStartTime;
-        private float _lastEndTime;
+        private float _sprintStartTime;
+        private float _sprintEndTime;
         
         public bool IsSprinting { get; private set; }
 
-        partial void Initialize()
+        private void ProcessSprint()
         {
-            _sprintState.Initialize(Animancer);
-
-            _lastEndTime = -_sprintCooldown;
-        }
-
-        partial void Process()
-        {
-            if (HasStarted())
+            if (HasSprintStarted())
             {
                 IsSprinting = true;
-                _lastStartTime = Time.time;
+                _sprintStartTime = Time.time;
                 TrySetState(_sprintState);
                 return;
             }
 
-            if (HasEnded())
+            if (HasSprintEnded())
             {
                 IsSprinting = false;
-
-                _lastEndTime = Time.time;
+                _sprintEndTime = Time.time;
+                TrySetState(_moveState);
             }
         }
 
-        private bool HasStarted()
+        private bool HasSprintStarted()
         {
             return !IsSprinting &&
                    _sprintAction.action.triggered &&
-                   Time.time - _lastEndTime >= _sprintCooldown &&
+                   Time.time - _sprintEndTime >= _sprintCooldown &&
                    MoveDirection.magnitude > _sprintThreshold &&
                    IsGrounded;
         }
 
-        private bool HasEnded()
+        private bool HasSprintEnded()
         {
             return IsSprinting && 
-                   (Time.time - _lastStartTime >= _sprintDuration ||
+                   (Time.time - _sprintStartTime >= _sprintDuration ||
                     _sprintAction.action.triggered ||
                     MoveDirection.magnitude <= _sprintThreshold ||
                     !IsGrounded);
