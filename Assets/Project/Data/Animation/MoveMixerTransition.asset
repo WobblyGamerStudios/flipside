@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c801648a934e814f930c2aeaa609bf7, type: 3}
+  m_Name: MoveMixerTransition
+  m_EditorClassIdentifier: 
+  _Transition:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RootMotionLinearMixerTransition, ns: Wgs.FlipSide, asm: wgs.flipside}
+      data:
+        _FadeDuration: 0.25
+        _Events:
+          _NormalizedTimes: []
+          _Callbacks: []
+          _Names: []
+        _Speed: 1
+        _Animations:
+        - {fileID: -203655887218126122, guid: 08f27ed7e49a73b488faf4bb7aa1a6bc, type: 3}
+        - {fileID: -203655887218126122, guid: 09a179f174cc1f042a4993ef2142054c, type: 3}
+        - {fileID: -203655887218126122, guid: d4da01f666ca66a4ca11ba1ef2ab053a, type: 3}
+        _Speeds: []
+        _SynchronizeChildren: 
+        _Thresholds:
+        - 0
+        - 0.5
+        - 1
+        _DefaultParameter: 0
+        _ExtrapolateSpeed: 1
+        _applyRootMotion: 0

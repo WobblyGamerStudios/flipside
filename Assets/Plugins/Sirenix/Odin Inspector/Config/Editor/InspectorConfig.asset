@@ -16,4 +16,184 @@ MonoBehaviour:
   defaultEditorBehaviour: 11
   processMouseMoveInInspector: 1
   drawingConfig:
-    configs: []
+    configs:
+    - DrawnTypeName: Animancer.AnimancerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.ClipTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.ControllerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.EndEventReceiver, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Float1ControllerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Float2ControllerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Float3ControllerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.LinearMixerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.ManualMixerTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.MixerTransition2DAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.PlayableAssetTransitionAsset, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.SimpleEventReceiver, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.SpriteRendererTextureSwap, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Editor.AnimationClipPreview, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Editor.DummySerializableCallback, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Editor.TemporarySettings, Animancer
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.OrbitControls, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.TimeScale, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GolfMiniGame, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.HybridBasics, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.LocomotionState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.AirborneState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.AttackState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.Character, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.CharacterSelector,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.DieState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.FlinchState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.IdleState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.KeyboardAndMouseBrain,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.LandingState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.LocomotionState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.RespawnState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.AnimatorControllers.GameKit.RootMotionRedirect,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Basics.NamedAnimations, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Basics.PlayAnimationOnClick, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Basics.PlayingAndFading, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Basics.PlayTransitionOnClick, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.DirectionalSprites.SpriteCharacterController,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.DirectionalSprites.SpriteMovementController,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.FootstepEvents, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.FootstepEventsAnimation, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.GolfHitControllerAnimancer, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.GolfHitControllerAnimancerHybrid,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.GolfHitControllerAnimation, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Events.GolfHitControllerAnimationSimple,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.FineControl.ClickToInteract, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.FineControl.Door, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.FineControl.DynamicUpdateRate, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.FineControl.LowUpdateRate, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.FineControl.SpiderBotSimple, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.IKPuppet, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.IKPuppetLookTarget, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.IKPuppetTarget, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.MouseDrag, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.ObstacleTreadmill, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.RaycastFootIK, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.InverseKinematics.TransformResetter, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Jobs.Damping, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Jobs.SimpleLeanComponent, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Jobs.TwoBoneIK, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Layers.LayerExample, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Locomotion.LinearBlendTreeLocomotion, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Locomotion.LinearMixerLocomotion, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Locomotion.RootMotion, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Locomotion.ScreenBoundsTeleporter, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.Locomotion.SpiderBotAdvanced, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Brains.Character, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Brains.IdleState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Brains.KeyboardBrain, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Brains.LocomotionState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Brains.MouseBrain, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Characters.Character, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Characters.CharacterState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.GameManager.GameManagerEnum,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.GameManager.GameManagerFSM,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.InterruptManagement.CharacterState,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Weapons.AttackInput, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Weapons.AttackState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Weapons.EquipState, Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Weapons.RootMotionRedirect,
+        Animancer.Examples
+      EditorTypeName: 
+    - DrawnTypeName: Animancer.Examples.StateMachines.Weapons.Weapon, Animancer.Examples
+      EditorTypeName: 

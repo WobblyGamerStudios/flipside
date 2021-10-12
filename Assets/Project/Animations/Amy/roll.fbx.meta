@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 93c8b91c7104a474198337b5f0b149d4
+guid: 038782dd21516ff44a11a691d57722d7
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -26,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -39,7 +39,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 57
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
