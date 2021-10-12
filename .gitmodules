@@ -1,6 +1,3 @@
 [submodule "Assets/wgs-core"]
 	path = Assets/wgs-core
 	url = git@github.com:WobblyGamerStudios/wgs-core.git
-[submodule "Assets/wgs-locomotion-third-person"]
-	path = Assets/wgs-locomotion-third-person
-	url = git@github.com:WobblyGamerStudios/wgs-locomotion-third-person.git
