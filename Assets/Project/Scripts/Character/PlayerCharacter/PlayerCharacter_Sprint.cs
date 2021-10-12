@@ -38,7 +38,7 @@ namespace Wgs.FlipSide
                 
                 if (IsJumping || IsCrouching || IsSliding) return;
                 
-                TrySetState(_moveState);
+                CheckFall();
             }
         }
 
