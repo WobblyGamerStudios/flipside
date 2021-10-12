@@ -49,6 +49,7 @@ namespace Wgs.FlipSide
                    MoveDirection.magnitude > _sprintThreshold &&
                    IsGrounded && 
                    !IsCrouching &&
+                   !IsRolling &&
                    _sprintAction.action.triggered;
         }
 

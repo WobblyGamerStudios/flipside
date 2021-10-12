@@ -26,7 +26,8 @@ namespace Wgs.FlipSide
             {
                 _isForceDetach = true;
                 IsJumping = true;
-                Velocity += Vector3.up * _jumpPower;
+                Velocity += MoveDirection + (Vector3.up * _jumpPower);
+                Debug.DrawRay(transform.position, Velocity.normalized * 1, Color.yellow, 5);
                 _jumpTime = Time.time;
                 _checkedForFall = false;
 
@@ -54,6 +55,7 @@ namespace Wgs.FlipSide
         {
             return IsGrounded && 
                    !IsSliding &&
+                   !IsRolling &&
                    _jumpAction.action.triggered;
         }
     }

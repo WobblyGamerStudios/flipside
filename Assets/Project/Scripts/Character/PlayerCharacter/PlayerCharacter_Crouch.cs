@@ -34,6 +34,7 @@ namespace Wgs.FlipSide
         {
             return !IsCrouching && 
                    !IsSliding &&
+                   !IsRolling &&
                    IsGrounded && 
                    IsCrouchAbovePressPoint();
         }

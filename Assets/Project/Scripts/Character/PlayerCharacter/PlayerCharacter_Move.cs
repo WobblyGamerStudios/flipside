@@ -44,15 +44,19 @@ namespace Wgs.FlipSide
             }
             else
             {
-                //Apply air movement
-                Velocity += MoveDirection * (_airAcceleration * Time.deltaTime);
-                
-                //Clamp air movement to max speed
-                float verticalVelocity = Velocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(Velocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _maxAirSpeed);
-                Velocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                
+                if (!IsJumping)
+                {
+                    //Apply air movement
+                    Velocity += MoveDirection * (_airAcceleration * Time.deltaTime);
+
+
+                    //Clamp air movement to max speed
+                    float verticalVelocity = Velocity.y;
+                    Vector3 horizontalVelocity = Vector3.ProjectOnPlane(Velocity, Vector3.up);
+                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _maxAirSpeed);
+                    Velocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+                }
+
                 //Apply gravity
                 Velocity += Vector3.down * (_gravityFactor * Time.deltaTime);
             }
@@ -68,7 +72,16 @@ namespace Wgs.FlipSide
             _moveInputClamped = Vector3.ClampMagnitude(new Vector3(MoveInput.x, 0, MoveInput.y), 1);
 
             var projection = Vector3.ProjectOnPlane(_cameraTransform.rotation * Vector3.forward, transform.up).normalized;
-            MoveDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
+
+            var targetDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
+            if (IsSliding || IsRolling)
+            {
+                MoveDirection = Vector3.Lerp(MoveDirection, targetDirection, 3 * Time.deltaTime);
+            }
+            else
+            {
+                MoveDirection = targetDirection;
+            }
         }
         
         // Gets a reoriented direction that is tangent to a given slope

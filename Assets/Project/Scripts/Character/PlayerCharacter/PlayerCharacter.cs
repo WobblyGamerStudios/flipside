@@ -28,6 +28,7 @@ namespace Wgs.FlipSide
             _slideState.Initialize(Animancer);
             _crouchState.Initialize(Animancer);
             _sprintState.Initialize(Animancer);
+            _rollState.Initialize(Animancer);
             
             _moveState.AddCallback(0.25f, delegate { SetFoot(1); });
             _moveState.AddCallback(0.65f, delegate { SetFoot(0); });
@@ -42,6 +43,7 @@ namespace Wgs.FlipSide
             CalculateTraversalSpeed();
             
             ProcessMovement();
+            ProcessRoll();
             ProcessSlide();
             ProcessCrouch();
             ProcessSprint();
@@ -66,6 +68,7 @@ namespace Wgs.FlipSide
             
             if (IsCrouching) TraversalSpeed = _crouchSpeed;
             if (IsSprinting) TraversalSpeed = _sprintSpeed;
+            if (IsRolling) TraversalSpeed = Mathf.Lerp(_rollSpeed, _moveSpeed, Time.time - _rollStartTime);
             if (IsSliding) TraversalSpeed = Mathf.Lerp(_sprintSpeed, _crouchSpeed, Time.time - _slideStartTime);
         }
 
@@ -87,9 +90,15 @@ namespace Wgs.FlipSide
             var fallRay = new Ray(transform.position, Vector3.down);
             Debug.DrawRay(fallRay.origin, fallRay.direction * _minFallDistance, Color.red, 3);
             if (Physics.Raycast(fallRay, _minFallDistance, _traversableLayers))
+            {
                 TrySetState(_moveState);
+            }
             else
-                TrySetState(_fallState);    
+            {
+                TrySetState(_fallState);
+                IsSliding = false;
+                IsRolling = false;
+            }
         }
     }
 }

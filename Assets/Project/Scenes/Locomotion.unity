@@ -3535,6 +3535,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4287461183192828, guid: 56ceb8b51a3ad9648beb54dc0c75f997, type: 3}
   m_PrefabInstance: {fileID: 2045177345}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2074090810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074090811}
+  - component: {fileID: 2074090812}
+  m_Layer: 0
+  m_Name: RollState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074090811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074090810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4842712823373198927}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074090812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074090810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2144706bf621f4439722e60634791aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clipTransition:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - NaN
+      _Callbacks:
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 4842712824296600002}
+            m_TargetAssemblyTypeName: Wgs.FlipSide.PlayerCharacter, wgs.flipside
+            m_MethodName: RollComplete
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 038782dd21516ff44a11a691d57722d7, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
 --- !u!1001 &2079091463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4619,6 +4686,7 @@ Transform:
   - {fileID: 7137489724546126360}
   - {fileID: 1882863027}
   - {fileID: 1399866994}
+  - {fileID: 2074090811}
   m_Father: {fileID: 4842712824296599999}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5795,7 +5863,7 @@ MonoBehaviour:
   _friction: 15
   _gravityFactor: 15
   _airAcceleration: 10
-  _maxAirSpeed: 3
+  _maxAirSpeed: 6
   _moveAction:
     m_UseReference: 1
     m_Action:
@@ -5807,6 +5875,19 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 2620825069234744408, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _rollState: {fileID: 2074090812}
+  _rollSpeed: 7
+  _rollAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Roll
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f25cac96-210a-427b-ae4e-04bc4329fb31
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _slideState: {fileID: 1882863028}
   _minSlideThreshold: 1
   _sprintState: {fileID: 4842712824448149301}
