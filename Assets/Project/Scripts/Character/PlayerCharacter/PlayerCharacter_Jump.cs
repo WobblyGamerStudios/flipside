@@ -9,7 +9,8 @@ namespace Wgs.FlipSide
     public partial class PlayerCharacter : Character
     {
         [Title("Jump")] 
-        [SerializeField] private ClipState _jumpState;
+        [SerializeField] private ClipState _leftFootJumpState;
+        [SerializeField] private ClipState _rightFootJumpState;
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _checkFallDelay = 1;
         [SerializeField] private InputActionProperty _jumpAction;
@@ -28,7 +29,16 @@ namespace Wgs.FlipSide
                 Velocity += Vector3.up * _jumpPower;
                 _jumpTime = Time.time;
                 _checkedForFall = false;
-                TrySetState(_jumpState);
+
+                switch (_groundedFoot)
+                {
+                    case GroundedFoot.Left:
+                        TrySetState(_leftFootJumpState);
+                        break;
+                    case GroundedFoot.Right:
+                        TrySetState(_rightFootJumpState);
+                        break;
+                }
             }
 
             if (!IsJumping || _checkedForFall) return;

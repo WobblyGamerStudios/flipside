@@ -23,10 +23,14 @@ namespace Wgs.FlipSide
         {
             _moveState.Initialize(Animancer);
             _fallState.Initialize(Animancer);
-            _jumpState.Initialize(Animancer);
+            _leftFootJumpState.Initialize(Animancer);
+            _rightFootJumpState.Initialize(Animancer);
             _slideState.Initialize(Animancer);
             _crouchState.Initialize(Animancer);
             _sprintState.Initialize(Animancer);
+            
+            _moveState.AddCallback(0.25f, delegate { SetFoot(1); });
+            _moveState.AddCallback(0.65f, delegate { SetFoot(0); });
 
             TrySetState(_moveState);
         }

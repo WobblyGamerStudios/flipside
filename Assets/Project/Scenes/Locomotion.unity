@@ -2370,6 +2370,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4166737424974280, guid: c77201b26fc729742973d2d4e601743f, type: 3}
   m_PrefabInstance: {fileID: 368404169}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1399866993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1399866994}
+  - component: {fileID: 1399866995}
+  m_Layer: 0
+  m_Name: RightFootJumpState (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1399866994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399866993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4842712823373198927}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1399866995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399866993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2144706bf621f4439722e60634791aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clipTransition:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
 --- !u!1 &1474073369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4566,6 +4618,7 @@ Transform:
   - {fileID: 4842712824448149302}
   - {fileID: 7137489724546126360}
   - {fileID: 1882863027}
+  - {fileID: 1399866994}
   m_Father: {fileID: 4842712824296599999}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5722,9 +5775,10 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 2049412580501723331, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
-  _jumpState: {fileID: 6595145210515456266}
-  _jumpPower: 4
-  _checkFallDelay: 0.5
+  _leftFootJumpState: {fileID: 6595145210515456266}
+  _rightFootJumpState: {fileID: 1399866995}
+  _jumpPower: 5
+  _checkFallDelay: 0.75
   _jumpAction:
     m_UseReference: 1
     m_Action:
@@ -5754,7 +5808,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
     m_Reference: {fileID: 2620825069234744408, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _slideState: {fileID: 1882863028}
-  _slideSpeedMultiplier: 0
+  _minSlideThreshold: 1
   _sprintState: {fileID: 4842712824448149301}
   _sprintSpeed: 6
   _sprintThreshold: 0.9
@@ -6289,7 +6343,7 @@ GameObject:
   - component: {fileID: 7137489724546126360}
   - component: {fileID: 6595145210515456266}
   m_Layer: 0
-  m_Name: JumpState
+  m_Name: LeftFootJumpState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6313,7 +6367,7 @@ MonoBehaviour:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: -203655887218126122, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
+    _Clip: {fileID: -3185209899490993639, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
 --- !u!4 &7137489724546126360

@@ -8,6 +8,12 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
+        public enum GroundedFoot
+        {
+            Left, 
+            Right
+        }
+        
         [Title("Move")] 
         [SerializeField] private LinearState _moveState;
         [SerializeField] private float _moveSpeed = 3;
@@ -21,6 +27,7 @@ namespace Wgs.FlipSide
         public Vector3 MoveDirection { get; private set; }
 
         private Vector3 _moveInputClamped;
+        private GroundedFoot _groundedFoot;
         
         private void ProcessMovement()
         {
@@ -69,6 +76,11 @@ namespace Wgs.FlipSide
         {
             Vector3 directionRight = Vector3.Cross(direction, transform.up);
             return Vector3.Cross(surfaceNormal, directionRight).normalized;
+        }
+
+        private void SetFoot(int index)
+        {
+            _groundedFoot = (GroundedFoot) index;
         }
     }
 }

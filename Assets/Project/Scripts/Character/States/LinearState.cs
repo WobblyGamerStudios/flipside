@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ namespace Wgs.FlipSide
             base.OnEnterState();
 
             _animancer.Play(_linearMixerTransition);
+        }
+
+        public void AddCallback(float normalizedTime, Action callback)
+        {
+            _linearMixerTransition.Transition.Events.Add(normalizedTime, callback);
         }
     }
 }
