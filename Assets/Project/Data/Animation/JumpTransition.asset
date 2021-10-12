@@ -24,6 +24,6 @@ MonoBehaviour:
           _NormalizedTimes: []
           _Callbacks: []
           _Names: []
-        _Clip: {fileID: -4936788708938890714, guid: e7ed9db3c5ae22043801409f320ae4df, type: 3}
-        _Speed: 1
+        _Clip: {fileID: -203655887218126122, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
+        _Speed: 1.25
         _NormalizedStartTime: 0.05

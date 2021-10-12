@@ -1,13 +1,12 @@
 using Animancer;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Wgs.FlipSide
 {
     public class ClipState : CharacterState
     {
-        [SerializeField, InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)] 
-        protected ClipTransitionAsset _clipTransition;
+        [SerializeField] 
+        protected ClipTransition _clipTransition;
 
         public override void OnEnterState()
         {

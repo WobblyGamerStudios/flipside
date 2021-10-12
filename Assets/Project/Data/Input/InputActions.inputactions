@@ -38,7 +38,7 @@
                     "interactions": "Press"
                 },
                 {
-                    "name": "NorthPress",
+                    "name": "North",
                     "type": "Button",
                     "id": "829fcca6-9d7d-4d5b-922a-fb366a70ecd1",
                     "expectedControlType": "Button",
@@ -46,7 +46,7 @@
                     "interactions": "Press(behavior=1)"
                 },
                 {
-                    "name": "EastHold",
+                    "name": "East",
                     "type": "Button",
                     "id": "7ace3b88-5015-44e9-b1c3-fe010f63704f",
                     "expectedControlType": "Button",
@@ -54,20 +54,36 @@
                     "interactions": ""
                 },
                 {
-                    "name": "SouthPress",
+                    "name": "South",
                     "type": "Button",
                     "id": "3ec80f2e-cb7e-4834-85e7-2965f4f5324e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": ""
                 },
                 {
-                    "name": "WestPress",
+                    "name": "West",
                     "type": "Button",
                     "id": "086eeaaa-2a5d-4af6-bfa9-968d45cfe31b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": ""
+                },
+                {
+                    "name": "RightJoystickPress",
+                    "type": "Button",
+                    "id": "917663d3-3323-43d4-9033-d865c4173ef0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "RightShoulder",
+                    "type": "Button",
+                    "id": "c54f6914-f4c2-4421-b17e-10fe9253a662",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -122,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NorthPress",
+                    "action": "North",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -133,7 +149,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SouthPress",
+                    "action": "South",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -144,7 +160,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WestPress",
+                    "action": "West",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -155,7 +171,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EastHold",
+                    "action": "East",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ffe7d97-f559-4774-ab8d-256045c0919b",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightJoystickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab0cfdd7-9941-4b86-b000-f95259290638",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightShoulder",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

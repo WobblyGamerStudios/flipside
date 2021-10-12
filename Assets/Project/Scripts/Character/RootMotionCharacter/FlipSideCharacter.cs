@@ -13,6 +13,8 @@ namespace Wgs.FlipSide
         [SerializeField] private ClipState _fallState;
         [SerializeField] private float _minFallDistance = 1;
         
+        public Vector3 Velocity { get; private set; }
+        
         private Vector3 _deltaPosition;
         private Vector3 _verticalVelocity;
         private Vector3 _horizontalVelocity;
@@ -32,17 +34,22 @@ namespace Wgs.FlipSide
 
         protected override void Update()
         {
-            // if (!IsGrounded)
-            // {
-            //     //set fall state
-            //     TrySetState(_fallState);
-            //     return;
-            // }
-
             ProcessMovement();
             ProcessSprint();
             ProcessCrouch();
             ProcessJump();
+
+            if (IsGrounded)
+            {
+                Velocity = CharacterController.velocity;
+            }
+            else
+            {
+                Velocity += Vector3.down * (_gravityFactor * Time.deltaTime);
+            }
+
+            Velocity = new Vector3{y = Velocity.y};
+            CharacterController.Move(Velocity * Time.deltaTime);
             
             //Rotate character
             if (MoveDirection != Vector3.zero)
@@ -64,29 +71,29 @@ namespace Wgs.FlipSide
             var movement = Animancer.Animator.deltaPosition;
             _deltaPosition = movement;
             movement *= 1 + _speedMultiplier;
-
-            if (IsGrounded)
-            {
-                _verticalVelocity = Vector3.zero;
-            }
-            else
-            {
-                if (IsJumping)
-                {
-                    _verticalVelocity += Vector3.up * (_jumpPower * Time.deltaTime);
-                }
-                else
-                {
-                    _verticalVelocity += Vector3.down * (_gravityFactor * Time.deltaTime);
-                }
-
-                //Apply air control
-                _horizontalVelocity += MoveDirection * (Time.deltaTime * _airAcceleration);
-                _horizontalVelocity = Vector3.ClampMagnitude(_horizontalVelocity, _maxAirSpeed);
-            }
-
-            movement += (_verticalVelocity + _horizontalVelocity) * Time.deltaTime;
             
+            // if (IsGrounded)
+            // {
+            //     _verticalVelocity = Vector3.zero;
+            // }
+            // else
+            // {
+            //     if (IsJumping)
+            //     {
+            //         _verticalVelocity += Vector3.up * (_jumpPower * Time.deltaTime);
+            //     }
+            //     else
+            //     {
+            //         _verticalVelocity += Vector3.down * (_gravityFactor * Time.deltaTime);
+            //     }
+            //
+            //     //Apply air control
+            //     _horizontalVelocity += MoveDirection * (Time.deltaTime * _airAcceleration);
+            //     _horizontalVelocity = Vector3.ClampMagnitude(_horizontalVelocity, _maxAirSpeed);
+            // }
+            //
+            // movement += (_verticalVelocity + _horizontalVelocity) * Time.deltaTime;
+            //
             CharacterController.Move(movement);
         }
         
