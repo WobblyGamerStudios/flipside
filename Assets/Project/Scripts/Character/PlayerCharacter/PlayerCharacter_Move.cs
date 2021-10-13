@@ -91,7 +91,7 @@ namespace Wgs.FlipSide
             return Vector3.Cross(surfaceNormal, directionRight).normalized;
         }
 
-        private void SetFoot(int index)
+        public void SetFoot(int index)
         {
             _groundedFoot = (GroundedFoot) index;
         }

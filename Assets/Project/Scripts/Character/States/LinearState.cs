@@ -1,21 +1,21 @@
 using System;
-using Sirenix.OdinInspector;
+using Animancer;
 using UnityEngine;
 
 namespace Wgs.FlipSide
 {
     public class LinearState : CharacterState
     {
-        [SerializeField, InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)] 
-        private RootMotionLinearTransitionAsset _linearMixerTransition;
+        [SerializeField] 
+        private LinearMixerTransition _linearMixerTransition; 
         
         public float Blend
         {
-            get => _linearMixerTransition.Transition.State.Parameter;
+            get => _linearMixerTransition.State.Parameter;
             set
             {
                 if (!IsActive || !_linearMixerTransition.IsValid) return;
-                _linearMixerTransition.Transition.State.Parameter = value;
+                _linearMixerTransition.State.Parameter = value;
             }
         }
         
@@ -28,7 +28,7 @@ namespace Wgs.FlipSide
 
         public void AddCallback(float normalizedTime, Action callback)
         {
-            _linearMixerTransition.Transition.Events.Add(normalizedTime, callback);
+            _linearMixerTransition.Events.Add(normalizedTime, callback);
         }
     }
 }

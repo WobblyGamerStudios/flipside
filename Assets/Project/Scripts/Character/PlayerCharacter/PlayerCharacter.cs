@@ -8,6 +8,8 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
+        private const string LOG_FORMAT = nameof(PlayerCharacter) + ".{0} :: {1}";
+
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private float _rotateSpeed = 20;
         
@@ -30,8 +32,8 @@ namespace Wgs.FlipSide
             _sprintState.Initialize(Animancer);
             _rollState.Initialize(Animancer);
             
-            _moveState.AddCallback(0.25f, delegate { SetFoot(1); });
-            _moveState.AddCallback(0.65f, delegate { SetFoot(0); });
+            // _moveState.AddCallback(0.25f, delegate { SetFoot(1); });
+            // _moveState.AddCallback(0.65f, delegate { SetFoot(0); });
 
             TrySetState(_moveState);
         }
