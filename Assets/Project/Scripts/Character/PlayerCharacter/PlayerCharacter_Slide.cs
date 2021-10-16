@@ -10,6 +10,7 @@ namespace Wgs.FlipSide
         [Title("Slide")] 
         [SerializeField] private ClipState _slideState;
         [SerializeField] private float _minSlideThreshold;
+        [SerializeField] private CharacterSize _slideSize;
         
         public bool IsSliding { get; private set; }
 
@@ -24,6 +25,7 @@ namespace Wgs.FlipSide
             {
                 IsSliding = true;
                 _slideStartTime = Time.time;
+                ModifyCharacterSize(_slideSize);
                 TrySetState(_slideState);
             }
 
@@ -43,6 +45,7 @@ namespace Wgs.FlipSide
         public void SlideComplete()
         {
             IsSliding = false;
+            ModifyCharacterSize(_defaultSize);
             TrySetState(_moveState);
         }
     }

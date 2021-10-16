@@ -9,7 +9,7 @@ namespace Wgs.FlipSide
         [SerializeField] 
         private LinearMixerTransition _linearMixerTransition; 
         
-        public float Blend
+        public float Value
         {
             get => _linearMixerTransition.State.Parameter;
             set
@@ -24,11 +24,6 @@ namespace Wgs.FlipSide
             base.OnEnterState();
 
             _animancer.Play(_linearMixerTransition);
-        }
-
-        public void AddCallback(float normalizedTime, Action callback)
-        {
-            _linearMixerTransition.Events.Add(normalizedTime, callback);
         }
     }
 }

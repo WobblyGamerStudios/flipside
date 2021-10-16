@@ -9,24 +9,27 @@ namespace Wgs.FlipSide
         [Title("Crouch")] 
         [SerializeField] private LinearState _crouchState;
         [SerializeField] private float _crouchSpeed;
+        [SerializeField] private CharacterSize _crouchSize;
         [SerializeField] private InputActionProperty _crouchAction;
 
         public bool IsCrouching { get; private set; }
 
         private void ProcessCrouch()
         {
-            _crouchState.Blend = MoveDirection.magnitude;
+            _crouchState.Value = MoveDirection.magnitude;
 
             if (HasCrouchStarted())
             {
                 IsCrouching = true;
+                ModifyCharacterSize(_crouchSize);
                 TrySetState(_crouchState);
             }
             
             if (HasCrouchEnded())
             {
                 IsCrouching = false;
-                TrySetState(_moveState);
+                ModifyCharacterSize(_defaultSize);
+                CheckFall();
             }
         }
 

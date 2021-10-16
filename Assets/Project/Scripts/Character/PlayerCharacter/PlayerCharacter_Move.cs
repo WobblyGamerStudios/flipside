@@ -33,6 +33,8 @@ namespace Wgs.FlipSide
         {
             CalculateMoveDirection();
 
+            if (IsClimbing) return;
+
             if (IsGrounded)
             {
                 Vector3 targetVelocity = MoveDirection * TraversalSpeed;
@@ -44,24 +46,20 @@ namespace Wgs.FlipSide
             }
             else
             {
-                if (!IsJumping)
-                {
-                    //Apply air movement
-                    Velocity += MoveDirection * (_airAcceleration * Time.deltaTime);
+                //Apply air movement
+                Velocity += MoveDirection * (_airAcceleration * Time.deltaTime);
 
-
-                    //Clamp air movement to max speed
-                    float verticalVelocity = Velocity.y;
-                    Vector3 horizontalVelocity = Vector3.ProjectOnPlane(Velocity, Vector3.up);
-                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _maxAirSpeed);
-                    Velocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                }
+                //Clamp air movement to max speed
+                float verticalVelocity = Velocity.y;
+                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(Velocity, Vector3.up);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _maxAirSpeed);
+                Velocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 //Apply gravity
                 Velocity += Vector3.down * (_gravityFactor * Time.deltaTime);
             }
 
-            _moveState.Blend = MoveDirection.magnitude;
+            _moveState.Value = MoveDirection.magnitude;
         }
         
         private void CalculateMoveDirection()

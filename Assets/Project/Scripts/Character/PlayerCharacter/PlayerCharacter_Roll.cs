@@ -9,6 +9,7 @@ namespace Wgs.FlipSide
         [Title("Roll")] 
         [SerializeField] private ClipState _rollState;
         [SerializeField] private float _rollSpeed;
+        [SerializeField] private CharacterSize _rollSize;
         [SerializeField] private InputActionProperty _rollAction;
 
         public bool IsRolling { get; private set; }
@@ -22,6 +23,7 @@ namespace Wgs.FlipSide
                 IsRolling = true;
                 _rollStartTime = Time.time;
                 IsSprinting = false;
+                ModifyCharacterSize(_rollSize);
                 TrySetState(_rollState);
             }
         }
@@ -30,6 +32,7 @@ namespace Wgs.FlipSide
         {
             return !IsRolling &&
                    !IsSliding &&
+                   !IsClimbing &&
                    IsGrounded &&
                    MoveDirection.magnitude > InputSystem.settings.defaultDeadzoneMin &&
                    _rollAction.action.triggered;
@@ -38,6 +41,7 @@ namespace Wgs.FlipSide
         public void RollComplete()
         {
             IsRolling = false;
+            ModifyCharacterSize(_defaultSize);
             TrySetState(_moveState);
         }
     }

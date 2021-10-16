@@ -17,7 +17,8 @@ namespace Wgs.FlipSide
         public bool IsGrounded { get; protected set; }
         public Vector3 GroundNormal { get; protected set; }
         public Vector3 PreviousPosition { get; protected set; }
-        
+
+        protected CharacterSize _defaultSize;
         protected float _lastLostContactTime;
         protected float _lastRegainedContactTime;
         protected bool _isForceDetach;
@@ -32,6 +33,8 @@ namespace Wgs.FlipSide
         protected virtual void Awake()
         {
             FindDependencies();
+
+            _defaultSize.Height = CharacterController.height;
         }
 
         protected virtual void Update()
@@ -64,6 +67,12 @@ namespace Wgs.FlipSide
         {
 	        if (!Animancer) Animancer = GetComponent<AnimancerComponent>();
             if (!CharacterController) CharacterController = GetComponent<CharacterController>();
+        }
+
+        protected virtual void ModifyCharacterSize(CharacterSize size)
+        {
+            CharacterController.height = size.Height;
+            CharacterController.center = new Vector3 {y = (size.Height * 0.5f) + size.YOffset};
         }
         
         protected virtual void CheckGround()
@@ -137,5 +146,12 @@ namespace Wgs.FlipSide
         #endregion Events
 
         public virtual bool TrySetState(CharacterState state) => StateMachine.TrySetState(state);
+    }
+
+    [Serializable]
+    public struct CharacterSize
+    {
+        public float Height;
+        public float YOffset;
     }
 }

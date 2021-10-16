@@ -31,10 +31,8 @@ namespace Wgs.FlipSide
             _crouchState.Initialize(Animancer);
             _sprintState.Initialize(Animancer);
             _rollState.Initialize(Animancer);
+            _climbState.Initialize(Animancer);
             
-            // _moveState.AddCallback(0.25f, delegate { SetFoot(1); });
-            // _moveState.AddCallback(0.65f, delegate { SetFoot(0); });
-
             TrySetState(_moveState);
         }
 
@@ -50,17 +48,26 @@ namespace Wgs.FlipSide
             ProcessCrouch();
             ProcessSprint();
             ProcessJump();
+            ProcessClimb();
 
             CollisionFlags = CharacterController.Move(Velocity * Time.deltaTime);
-            
-            //Rotate character
-            if (MoveDirection != Vector3.zero)
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+
+            if (IsClimbing)
+            {
+                //Face climbable
+            }
+            else
+            {
+                //Rotate character
+                if (MoveDirection != Vector3.zero)
+                    transform.rotation = Quaternion.Slerp(transform.rotation,
+                        Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+            }
         }
 
         protected override void CheckGround()
         {
-            if (Time.time - _lastLostContactTime < 0.2f) return;
+            if (Time.time - _lastLostContactTime < 0.2f || IsClimbing) return;
             base.CheckGround();
         }
 
@@ -76,7 +83,7 @@ namespace Wgs.FlipSide
 
         protected override void LostGroundContact()
         {
-            if (!IsJumping) CheckFall();
+            CheckFall();
             base.LostGroundContact();
         }
 
@@ -89,6 +96,8 @@ namespace Wgs.FlipSide
         
         public void CheckFall()
         {
+            if (IsJumping || IsClimbing) return;
+            
             var fallRay = new Ray(transform.position, Vector3.down);
             Debug.DrawRay(fallRay.origin, fallRay.direction * _minFallDistance, Color.red, 3);
             if (Physics.Raycast(fallRay, _minFallDistance, _traversableLayers))
