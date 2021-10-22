@@ -8,7 +8,7 @@ namespace Wgs.FlipSide
     {
         [Title("Climb")] 
         [SerializeField] private LayerMask _climbableLayers = -1;
-        [SerializeField] private MixerState _climbState;
+        [SerializeField] private ClimbState _climbState;
         [SerializeField, Range(0, 180)] private float _validClimbAngle;
         [SerializeField] private float _attachThreshold = 0.05f;
         [SerializeField] private float _reattachDelay = 0.5f;
@@ -17,7 +17,7 @@ namespace Wgs.FlipSide
         [SerializeField] private InputActionProperty _cancelClimbAction;
         
         public bool IsClimbing { get; private set; }
-        public Climbable CurrentClimbable { get; set; }
+        public ClimbableV2 CurrentClimbable { get; set; }
 
         private bool _isDetached;
         private float _timeSinceLastDetach;
@@ -33,12 +33,6 @@ namespace Wgs.FlipSide
                 CurrentClimbable.IsBeingClimbed = true;
                 TrySetState(_climbState);
 
-                //CharacterController.enabled = false;
-
-                //Look at the climbable
-                // Vector3 lookVector = _currentClimbable.transform.position - transform.position;
-                // transform.rotation = Quaternion.LookRotation(lookVector, transform.up);
-            
                 //Set starting position
                 ModifyCharacterSize(_climbSize);
                 CharacterController.Warp(CurrentClimbable.StartPoint);
@@ -64,7 +58,14 @@ namespace Wgs.FlipSide
 
         private void ClimbMove()
         {
-            
+            if (!IsClimbing) return;
+
+            var direction = CurrentClimbable.GetMoveDirection();
+
+            var newVal = new Vector2 {x = direction.x, y = direction.y};
+            _climbState.Value = Vector2.Lerp(_climbState.Value, newVal, Time.deltaTime * 10);
+
+            Velocity = direction * _climbSpeed;
         }
 
         private bool HasClimbStarted()
@@ -72,7 +73,7 @@ namespace Wgs.FlipSide
             if (!CurrentClimbable) return false;
             if (_isDetached && Time.time - _timeSinceLastDetach < _reattachDelay) return false;
             
-            var angle = Vector3.Angle(-transform.forward, CurrentClimbable.Forward);
+            var angle = Vector3.Angle(-transform.forward, CurrentClimbable.transform.forward);
             
             return !IsClimbing &&
                    MoveDirection.magnitude > InputSystem.settings.defaultDeadzoneMin &&
