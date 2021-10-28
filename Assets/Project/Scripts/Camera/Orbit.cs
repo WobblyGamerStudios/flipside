@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,10 +8,11 @@ namespace Wgs.FlipSide
 	[RequireComponent(typeof(CinemachineVirtualCamera))]
 	public class Orbit : MonoBehaviour
 	{
-		[SerializeField] private InputActionProperty _mouseOrbitAction;
 		[SerializeField] private InputActionProperty _controllerOrbitAction;
-		[SerializeField] private bool _invertY;
-		[SerializeField] private float _lookSpeed;
+		[SerializeField] private bool _invertHorizontal;
+		[SerializeField] private bool _invertVertical;
+		[SerializeField] private float _horizontalSpeed = 100;
+		[SerializeField] private float _verticalSpeed = 1;
         
 		private CinemachineVirtualCamera _camera;
         
@@ -31,15 +29,17 @@ namespace Wgs.FlipSide
 		private void Update()
 		{
 			var lookMovement = _controllerOrbitAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
+			
 			lookMovement.Normalize();
-			lookMovement.y = _invertY ? -lookMovement.y : lookMovement.y;
-			lookMovement.x = -lookMovement.x * 180f; 
+			
+			lookMovement.y = _invertVertical ? -lookMovement.y : lookMovement.y;
+			lookMovement.x = (_invertHorizontal ? -lookMovement.x : lookMovement.x) * 180f; 
 
 			var component = _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim) as CinemachinePOV;
 			if (component == null) return;
             
-			component.m_HorizontalAxis.Value += lookMovement.x * _lookSpeed * Time.deltaTime;
-			component.m_VerticalAxis.Value += lookMovement.y * (_lookSpeed * 100) * Time.deltaTime;
+			component.m_HorizontalAxis.Value += lookMovement.x * _verticalSpeed * Time.deltaTime;
+			component.m_VerticalAxis.Value += lookMovement.y * _horizontalSpeed * Time.deltaTime;
 		}
 	}
 }
