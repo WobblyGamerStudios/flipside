@@ -11,6 +11,7 @@ namespace Wgs.FlipSide
         [SerializeField] private ClipTransition _leanUpwards;
         [SerializeField] private ClipTransition _leanLeft;
         [SerializeField] private ClipTransition _leanRight;
+        [SerializeField] private ClipTransition _climbUp;
 
         [Button]
         private void Return()
@@ -37,6 +38,13 @@ namespace Wgs.FlipSide
         {
             if (!IsActive) return;
             _animancer.Play(_leanRight);
+        }
+
+        [Button]
+        public void ClimbUp()
+        {
+            if (!IsActive) return;
+            _animancer.Play(_climbUp);
         }
     }
 }

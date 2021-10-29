@@ -53,10 +53,15 @@ namespace Wgs.FlipSide
             CollisionFlags = CharacterController.Move(Velocity * Time.deltaTime);
 
             //Rotate character
-            if (MoveDirection != Vector3.zero)
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                    Quaternion.LookRotation(IsClimbing ? -CurrentClimbable.transform.forward : MoveDirection, transform.up),
-                    Time.deltaTime * _rotateSpeed);
+            if (IsClimbing)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-Hit.normal, transform.up), Time.deltaTime * _rotateSpeed);
+            }
+            else
+            {
+                if (MoveDirection != Vector3.zero)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+            }
         }
 
         protected override void CheckGround()
