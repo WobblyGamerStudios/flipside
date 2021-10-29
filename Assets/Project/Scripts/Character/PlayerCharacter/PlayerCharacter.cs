@@ -39,9 +39,9 @@ namespace Wgs.FlipSide
         protected override void Update()
         {
             base.Update();
-            
+
             CalculateTraversalSpeed();
-            
+
             ProcessMovement();
             ProcessRoll();
             ProcessSlide();
@@ -52,16 +52,15 @@ namespace Wgs.FlipSide
 
             CollisionFlags = CharacterController.Move(Velocity * Time.deltaTime);
 
+            //Rotate character
             if (IsClimbing)
             {
-                //Face climbable
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-Hit.normal, transform.up), Time.deltaTime * _rotateSpeed);
             }
             else
             {
-                //Rotate character
                 if (MoveDirection != Vector3.zero)
-                    transform.rotation = Quaternion.Slerp(transform.rotation,
-                        Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
             }
         }
 

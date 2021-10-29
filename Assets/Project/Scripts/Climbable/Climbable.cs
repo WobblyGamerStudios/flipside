@@ -12,12 +12,14 @@ namespace Wgs.FlipSide
         [SerializeField] private bool _canAttachFromGround;
         public bool CanAttachFromGround => _canAttachFromGround;
 
-        [SerializeField] private GameObject _blockers;
+        [SerializeField] private ClimbableDirections _directions;
+        public ClimbableDirections Directions => _directions;
         [SerializeField, ListDrawerSettings(CustomAddFunction = "AddZoneReference", CustomRemoveElementFunction = "RemoveZoneReference")]
         private List<ZoneReference> _zoneReferences = new List<ZoneReference>();
+
+        public bool IsBeingClimbed { get; set; }
         
         public Vector3 StartPoint { get; private set; }
-        public bool IsBeingClimbed { get; set; }
         public Vector3 Forward => _currentZone ? _currentZone.transform.forward : transform.forward;
         
         private ClimbableZone _currentZone;
@@ -25,11 +27,6 @@ namespace Wgs.FlipSide
         private PlayerCharacter _currentCharacter;
 
         #region MonoBehaviour
-
-        private void Awake()
-        {
-            if (_blockers) _blockers.SetActive(false);
-        }
 
         private void OnEnable()
         {
@@ -55,28 +52,33 @@ namespace Wgs.FlipSide
 
         private void OnZoneEnter(ClimbableZone zone, Collider other)
         {
-            if ((_currentZone && !Equals(_currentZone, zone)) || !other.tag.Equals("Player") || IsBeingClimbed) return;
+            if ((_currentZone && !Equals(_currentZone, zone)) || !other.tag.Equals("Player")) return;
 
+            _lastZone = _currentZone;
+            _currentZone = zone;
+
+            if (IsBeingClimbed) return;
+            
             if (!other.gameObject.TryGetComponent(out _currentCharacter))
             {
                 //log
                 return;
             }
-
-            //StartPoint = _currentCharacter.transform.position.ClampToBounds(zone.Collider.bounds);
-            _lastZone = _currentZone;
-            _currentZone = zone;
-            _currentCharacter.CurrentClimbable = this;
+            //_currentCharacter.CurrentClimbable = this;
+            
+            CalculatePoint();
         }
 
         private void OnZoneStay(ClimbableZone zone, Collider other)
         {
-            StartPoint = _currentCharacter.transform.position.ClampToBounds(zone.Collider.bounds);
+            if (!_currentCharacter) return;
+            
+            CalculatePoint();
         }
         
         private void OnZoneExit(ClimbableZone zone, Collider other)
         {
-            if (Equals(_lastZone, zone) || !other.tag.Equals("Player") || IsBeingClimbed) return;
+            if (zone != _currentZone && Equals(_lastZone, zone) || !other.tag.Equals("Player") || IsBeingClimbed) return;
 
             if (_currentCharacter) _currentCharacter.CurrentClimbable = null;
             
@@ -84,6 +86,21 @@ namespace Wgs.FlipSide
             _currentZone = null;
             _lastZone = null;
             IsBeingClimbed = false;
+        }
+
+        private void CalculatePoint()
+        {
+            var clampedPosition = _currentCharacter.transform.position.ClampToBounds(_currentZone.Collider.bounds);
+
+            if (!Directions.HasFlag(ClimbableDirections.Horizontal))
+            {
+                clampedPosition.x = _currentZone.Collider.bounds.center.x;
+                clampedPosition.z = _currentZone.Collider.bounds.center.z;
+            }
+            
+            if (!Directions.HasFlag(ClimbableDirections.Vertical)) clampedPosition.y = _currentZone.Collider.bounds.center.y;
+            
+            StartPoint = clampedPosition;
         }
 
         private bool Equals(ClimbableZone zone1, ClimbableZone zone2)
