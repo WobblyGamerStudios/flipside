@@ -30,8 +30,6 @@ namespace Wgs.FlipSide
 		{
 			var lookMovement = _controllerOrbitAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
 			
-			lookMovement.Normalize();
-			
 			lookMovement.y = _invertVertical ? -lookMovement.y : lookMovement.y;
 			lookMovement.x = (_invertHorizontal ? -lookMovement.x : lookMovement.x) * 180f; 
 

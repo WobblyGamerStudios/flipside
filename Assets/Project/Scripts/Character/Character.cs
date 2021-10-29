@@ -84,8 +84,8 @@ namespace Wgs.FlipSide
             IsGrounded = false;
             GroundNormal = Vector3.up;
 
-            if (!Physics.CapsuleCast(GetCapsuleBottomHemisphere(),
-                GetCapsuleTopHemisphere(CharacterController.height),
+            if (!Physics.CapsuleCast(CharacterBottomHemisphere(),
+                CharacterTopHemisphere(CharacterController.height),
                 CharacterController.radius, Vector3.down, out RaycastHit hit, checkDistance, _traversableLayers,
                 QueryTriggerInteraction.Ignore)) return;
 
@@ -126,14 +126,24 @@ namespace Wgs.FlipSide
             return Vector3.Angle(transform.up, normal) <= CharacterController.slopeLimit;
         }
         
-        public Vector3 GetCapsuleBottomHemisphere()
+        public Vector3 CharacterBottomHemisphere()
         {
             return transform.position + transform.up * CharacterController.radius;
         }
 
-        public Vector3 GetCapsuleTopHemisphere(float atHeight)
+        public Vector3 CharacterTopHemisphere(float atHeight)
         {
             return transform.position + transform.up * (atHeight - CharacterController.radius);
+        }
+
+        public Vector3 CharacterTop()
+        {
+            return transform.position + transform.up * CharacterController.height;
+        }
+
+        public Vector3 CharacterCenter()
+        {
+            return transform.position + transform.up * (CharacterController.height * 0.5f);
         }
 
         #endregion Helpers

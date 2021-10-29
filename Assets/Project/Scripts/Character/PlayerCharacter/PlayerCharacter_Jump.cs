@@ -54,6 +54,7 @@ namespace Wgs.FlipSide
         private bool HasJumpStarted()
         {
             return IsGrounded && 
+                   !IsClimbing &&
                    !IsSliding &&
                    !IsRolling &&
                    _jumpAction.action.triggered;
