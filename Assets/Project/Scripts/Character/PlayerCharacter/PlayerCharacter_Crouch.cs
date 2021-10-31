@@ -12,22 +12,20 @@ namespace Wgs.FlipSide
         [SerializeField] private CharacterSize _crouchSize;
         [SerializeField] private InputActionProperty _crouchAction;
 
-        public bool IsCrouching { get; private set; }
-
         private void ProcessCrouch()
         {
             _crouchState.Value = MoveDirection.magnitude;
 
             if (HasCrouchStarted())
             {
-                IsCrouching = true;
+                CurrentState = PlayerState.Crouch;
                 ModifyCharacterSize(_crouchSize);
                 TrySetState(_crouchState);
             }
             
             if (HasCrouchEnded())
             {
-                IsCrouching = false;
+                CurrentState = PlayerState.Move;
                 ModifyCharacterSize(_defaultSize);
                 CheckFall();
             }
@@ -35,16 +33,14 @@ namespace Wgs.FlipSide
 
         private bool HasCrouchStarted()
         {
-            return !IsCrouching && 
-                   !IsSliding &&
-                   !IsRolling &&
+            return CurrentState == PlayerState.Move &&
                    IsGrounded && 
                    IsCrouchAbovePressPoint();
         }
 
         private bool HasCrouchEnded()
         {
-            return IsCrouching &&
+            return CurrentState == PlayerState.Crouch &&
                    (!IsGrounded ||
                     !IsCrouchAbovePressPoint());
         }

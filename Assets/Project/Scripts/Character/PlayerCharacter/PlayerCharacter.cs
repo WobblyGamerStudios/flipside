@@ -10,6 +10,8 @@ namespace Wgs.FlipSide
     {
         private const string LOG_FORMAT = nameof(PlayerCharacter) + ".{0} :: {1}";
 
+        [ReadOnly] public PlayerState CurrentState;
+        
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private float _rotateSpeed = 20;
         
@@ -21,19 +23,11 @@ namespace Wgs.FlipSide
         public Vector3 Velocity { get; private set; }
         public float TraversalSpeed { get; private set; }
         
-        private void Start()
+        protected override void Start()
         {
-            _moveState.Initialize(Animancer);
-            _fallState.Initialize(Animancer);
-            _leftFootJumpState.Initialize(Animancer);
-            _rightFootJumpState.Initialize(Animancer);
-            _slideState.Initialize(Animancer);
-            _crouchState.Initialize(Animancer);
-            _sprintState.Initialize(Animancer);
-            _rollState.Initialize(Animancer);
-            _climbState.Initialize(Animancer);
-            
-            TrySetState(_moveState);
+           base.Start();
+           TrySetState(_moveState);
+           CurrentState = PlayerState.Move;
         }
 
         protected override void Update()
@@ -73,11 +67,11 @@ namespace Wgs.FlipSide
         private void CalculateTraversalSpeed()
         {
             TraversalSpeed = _moveSpeed;
-            
-            if (IsCrouching) TraversalSpeed = _crouchSpeed;
-            if (IsSprinting) TraversalSpeed = _sprintSpeed;
-            if (IsRolling) TraversalSpeed = Mathf.Lerp(_rollSpeed, _moveSpeed, Time.time - _rollStartTime);
-            if (IsSliding) TraversalSpeed = Mathf.Lerp(_sprintSpeed, _crouchSpeed, Time.time - _slideStartTime);
+
+            if (CurrentState.HasFlag(PlayerState.Crouch)) TraversalSpeed = _crouchSpeed;
+            if (CurrentState.HasFlag(PlayerState.Sprint)) TraversalSpeed = _sprintSpeed;
+            if (CurrentState.HasFlag(PlayerState.Roll)) TraversalSpeed = Mathf.Lerp(_rollSpeed, _moveSpeed, Time.time - _rollStartTime);;
+            if (CurrentState.HasFlag(PlayerState.Slide)) TraversalSpeed = Mathf.Lerp(_sprintSpeed, _crouchSpeed, Time.time - _slideStartTime);;
         }
 
         protected override void LostGroundContact()
@@ -88,14 +82,14 @@ namespace Wgs.FlipSide
 
         protected override void RegainedGroundContact()
         {
-            IsJumping = false;
+            CurrentState = PlayerState.Move;
             TrySetState(_moveState);
             base.RegainedGroundContact();
         }
         
         public void CheckFall()
         {
-            if (IsJumping || IsClimbing) return;
+            if (CurrentState.HasFlag(PlayerState.IgnoreFall)) return;
             
             var fallRay = new Ray(transform.position, Vector3.down);
             Debug.DrawRay(fallRay.origin, fallRay.direction * _minFallDistance, Color.red, 3);
@@ -106,9 +100,27 @@ namespace Wgs.FlipSide
             else
             {
                 TrySetState(_fallState);
-                IsSliding = false;
-                IsRolling = false;
+                CurrentState = PlayerState.Move;
             }
         }
+    }
+
+    [Flags]
+    public enum PlayerState
+    {
+        Move = 1 << 0,
+        Crouch = 1 << 1,
+        Sprint = 1 << 2,
+        Jump = 1 << 4,
+        Roll = 1 << 5,
+        Slide = 1 << 6,
+        Ladder = 1 << 7,
+        Free = 1 << 8,
+        Ledge = 1 << 9,
+        EndClimb = 1 << 10,
+        Climb = 1 << 11,
+        Disabled = 1 << 12,
+        Fall = 1 << 13,
+        IgnoreFall = 1 << 14
     }
 }
