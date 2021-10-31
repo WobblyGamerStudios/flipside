@@ -640,6 +640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4462638683677419640}
+  - component: {fileID: 5813503963497698850}
   m_Layer: 0
   m_Name: States
   m_TagString: Untagged
@@ -670,6 +671,20 @@ Transform:
   m_Father: {fileID: 4462638684365942664}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5813503963497698850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4462638683677419623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87d79d931711ee498359fe32e44b344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveState: {fileID: 0}
+  _fallState: {fileID: 0}
 --- !u!1 &4462638683724248552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,10 +1368,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a7e4bed0384184fa2194871d55b1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterStates:
+  - {fileID: 4462638684797277444}
+  - {fileID: 4462638684832974657}
+  - {fileID: 4462638683414627146}
+  - {fileID: 4462638684752378114}
+  - {fileID: 2692051119735414589}
+  - {fileID: 9140829065603394435}
+  - {fileID: 9140829066085095492}
+  - {fileID: 9140829065408742155}
+  - {fileID: 9140829065594593412}
   _traversableLayers:
     serializedVersion: 2
     m_Bits: 55
   _checkDistance: 0.1
+  CurrentState: 0
   _cameraTransform: {fileID: 0}
   _rotateSpeed: 20
   _fallState: {fileID: 4462638683414627146}
@@ -1418,6 +1444,10 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -6273983711228334387, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _ladderLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _ladderCheckDistance: 0
   _moveState: {fileID: 4462638684797277444}
   _moveSpeed: 3.5
   _friction: 15

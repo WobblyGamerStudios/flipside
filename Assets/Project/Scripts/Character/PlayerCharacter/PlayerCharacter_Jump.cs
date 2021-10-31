@@ -15,8 +15,6 @@ namespace Wgs.FlipSide
         [SerializeField] private float _checkFallDelay = 1;
         [SerializeField] private InputActionProperty _jumpAction;
         
-        public bool IsJumping { get; private set; }
-
         private float _jumpTime;
         private bool _checkedForFall;
         
@@ -24,8 +22,8 @@ namespace Wgs.FlipSide
         {
             if (HasJumpStarted())
             {
+                CurrentState = PlayerState.Jump | PlayerState.IgnoreFall;
                 _isForceDetach = true;
-                IsJumping = true;
                 Velocity += MoveDirection + (Vector3.up * _jumpPower);
                 Debug.DrawRay(transform.position, Velocity.normalized * 1, Color.yellow, 5);
                 _jumpTime = Time.time;
@@ -42,21 +40,23 @@ namespace Wgs.FlipSide
                 }
             }
 
-            if (!IsJumping || _checkedForFall) return;
+            if (!CurrentState.HasFlag(PlayerState.Jump)) return;
             
             if (Time.time - _jumpTime >= _checkFallDelay)
             {
-                _checkedForFall = true;
-                CheckFall();
+                CurrentState &= ~PlayerState.IgnoreFall;
             }
+            
+            if (CurrentState.HasFlag(PlayerState.IgnoreFall)) return;
+            
+            CheckFall();
         }
 
         private bool HasJumpStarted()
         {
             return IsGrounded && 
                    !IsClimbing &&
-                   !IsSliding &&
-                   !IsRolling &&
+                   !CurrentState.HasFlag(PlayerState.Disabled) &&
                    _jumpAction.action.triggered;
         }
     }

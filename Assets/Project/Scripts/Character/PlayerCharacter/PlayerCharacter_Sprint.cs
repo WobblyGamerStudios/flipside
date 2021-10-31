@@ -16,7 +16,6 @@ namespace Wgs.FlipSide
         [SerializeField, SuffixLabel("Seconds", true)] private float _sprintCooldown = 1.5f;
         [SerializeField] private InputActionProperty _sprintAction;
 
-        public bool IsSprinting { get; private set; }
 
         private float _sprintStartTime;
         private float _sprintEndTime;
@@ -25,7 +24,7 @@ namespace Wgs.FlipSide
         {
             if (HasSprintStarted())
             {
-                IsSprinting = true;
+                CurrentState = PlayerState.Sprint;
                 _sprintStartTime = Time.time;
                 TrySetState(_sprintState);
                 return;
@@ -33,29 +32,26 @@ namespace Wgs.FlipSide
 
             if (HasSprintEnded())
             {
-                IsSprinting = false;
                 _sprintEndTime = Time.time;
-                
-                if (IsJumping || IsCrouching || IsSliding) return;
-                
+
+                if (CurrentState.HasFlag(PlayerState.Jump)) return;
+                CurrentState = PlayerState.Move;
                 CheckFall();
             }
         }
 
         private bool HasSprintStarted()
         {
-            return !IsSprinting &&
+            return CurrentState == PlayerState.Move &&
                    Time.time - _sprintEndTime >= _sprintCooldown &&
                    MoveDirection.magnitude > _sprintThreshold &&
                    IsGrounded && 
-                   !IsCrouching &&
-                   !IsRolling &&
                    _sprintAction.action.triggered;
         }
 
         private bool HasSprintEnded()
         {
-            return IsSprinting && 
+            return CurrentState == PlayerState.Sprint && 
                    (Time.time - _sprintStartTime >= _sprintDuration ||
                     MoveDirection.magnitude < _sprintThreshold ||
                     !IsGrounded ||

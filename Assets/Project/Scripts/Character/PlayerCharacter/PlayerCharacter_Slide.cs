@@ -12,8 +12,6 @@ namespace Wgs.FlipSide
         [SerializeField] private float _minSlideThreshold;
         [SerializeField] private CharacterSize _slideSize;
         
-        public bool IsSliding { get; private set; }
-
         private float _slopeAngle;
         private float _slideStartTime;
         
@@ -23,13 +21,15 @@ namespace Wgs.FlipSide
             
             if (HasSlideStarted())
             {
-                IsSliding = true;
+                CurrentState = PlayerState.Slide | PlayerState.Disabled | PlayerState.IgnoreFall;
                 _slideStartTime = Time.time;
                 ModifyCharacterSize(_slideSize);
                 TrySetState(_slideState);
             }
 
-            if (IsSliding && _slopeAngle > 90 + _minSlideThreshold)
+            if (!CurrentState.HasFlag(PlayerState.Slide)) return;
+
+            if (_slopeAngle > 90 + _minSlideThreshold)
             {
                 SlideComplete();
             }
@@ -37,14 +37,13 @@ namespace Wgs.FlipSide
 
         private bool HasSlideStarted()
         {
-            return !IsSliding &&
-                   IsSprinting &&
-                   _crouchAction.action.triggered;
+            if (CurrentState.HasFlag(PlayerState.Slide)) return false;
+            return CurrentState == PlayerState.Sprint && _crouchAction.action.triggered;
         }
 
         public void SlideComplete()
         {
-            IsSliding = false;
+            CurrentState = PlayerState.Move;
             ModifyCharacterSize(_defaultSize);
             TrySetState(_moveState);
         }

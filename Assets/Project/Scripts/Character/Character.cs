@@ -1,6 +1,7 @@
 using System;
 using Animancer;
 using Animancer.FSM;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Wgs.FlipSide
@@ -8,9 +9,10 @@ namespace Wgs.FlipSide
     [RequireComponent(typeof(AnimancerComponent), typeof(CharacterController))]
     public abstract class Character : MonoBehaviour
     {
+        [SerializeField] private CharacterState[] _characterStates;
         [SerializeField] protected LayerMask _traversableLayers = -1;
         [SerializeField] protected float _checkDistance = 0.1f;
-        
+
         public AnimancerComponent Animancer { get; protected set; }
         public StateMachine<CharacterState>.WithDefault StateMachine { get; } = new StateMachine<CharacterState>.WithDefault();
         public CharacterController CharacterController { get; protected set; }
@@ -35,6 +37,14 @@ namespace Wgs.FlipSide
             FindDependencies();
 
             _defaultSize.Height = CharacterController.height;
+        }
+
+        protected virtual void Start()
+        {
+            foreach (var state in _characterStates)
+            {
+                state.Initialize(Animancer);
+            }
         }
 
         protected virtual void Update()

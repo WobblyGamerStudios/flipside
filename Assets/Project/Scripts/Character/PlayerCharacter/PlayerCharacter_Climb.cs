@@ -33,6 +33,7 @@ namespace Wgs.FlipSide
             if (HasClimbStarted(out RaycastHit hit))
             {
                 IsClimbing = true;
+                CurrentState = PlayerState.Climb | PlayerState.Free;
             
                 TrySetState(_climbState);
             
@@ -48,7 +49,7 @@ namespace Wgs.FlipSide
             if (HasClimbEnded())
             {
                 IsClimbing = false;
-            
+                CurrentState = PlayerState.Move;
                 ModifyCharacterSize(_defaultSize);
                 TrySetState(_moveState);
 

@@ -72,7 +72,7 @@ namespace Wgs.FlipSide
             var projection = Vector3.ProjectOnPlane(_cameraTransform.rotation * Vector3.forward, transform.up).normalized;
 
             var targetDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
-            if (IsSliding || IsRolling)
+            if (CurrentState.HasFlag(PlayerState.Disabled))
             {
                 MoveDirection = Vector3.Lerp(MoveDirection, targetDirection, 3 * Time.deltaTime);
             }
