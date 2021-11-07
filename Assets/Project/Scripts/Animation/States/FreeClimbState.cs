@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public class ClimbState : MixerState
+    public class FreeClimbState : MixerState
     {
         [SerializeField] private ClipTransition _leanUpwards;
         [SerializeField] private ClipTransition _leanLeft;

@@ -48,7 +48,6 @@ namespace Wgs.FlipSide
                 //log
                 return;
             }
-            _currentCharacter.CurrentClimbable = this;
             
             CalculatePoint();
         }
@@ -64,7 +63,6 @@ namespace Wgs.FlipSide
         {
             if (!other.tag.Equals("Player") || IsBeingClimbed) return;
 
-            if (_currentCharacter) _currentCharacter.CurrentClimbable = null;
             
             _currentCharacter = null;
             IsBeingClimbed = false;

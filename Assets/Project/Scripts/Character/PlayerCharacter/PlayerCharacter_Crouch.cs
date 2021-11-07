@@ -6,11 +6,10 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Crouch")] 
-        [SerializeField] private LinearState _crouchState;
-        [SerializeField] private float _crouchSpeed;
-        [SerializeField] private CharacterSize _crouchSize;
-        [SerializeField] private InputActionProperty _crouchAction;
+        [FoldoutGroup("Crouch"), SerializeField] private LinearState _crouchState;
+        [FoldoutGroup("Crouch"), SerializeField] private float _crouchSpeed;
+        [FoldoutGroup("Crouch"), SerializeField] private CharacterSize _crouchSize;
+        [FoldoutGroup("Crouch"), SerializeField] private InputActionProperty _crouchAction;
 
         private void ProcessCrouch()
         {

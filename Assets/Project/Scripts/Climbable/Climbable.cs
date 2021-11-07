@@ -80,7 +80,6 @@ namespace Wgs.FlipSide
         {
             if (zone != _currentZone && Equals(_lastZone, zone) || !other.tag.Equals("Player") || IsBeingClimbed) return;
 
-            if (_currentCharacter) _currentCharacter.CurrentClimbable = null;
             
             _currentCharacter = null;
             _currentZone = null;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,12 +6,16 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Jump")] 
-        [SerializeField] private ClipState _leftFootJumpState;
-        [SerializeField] private ClipState _rightFootJumpState;
-        [SerializeField] private float _jumpPower;
-        [SerializeField] private float _checkFallDelay = 1;
-        [SerializeField] private InputActionProperty _jumpAction;
+        [FoldoutGroup("Jump"), SerializeField] 
+        private ClipState _leftFootJumpState;
+        [FoldoutGroup("Jump"), SerializeField] 
+        private ClipState _rightFootJumpState;
+        [FoldoutGroup("Jump"), SerializeField] 
+        private float _jumpPower;
+        [FoldoutGroup("Jump"), SerializeField] 
+        private float _checkFallDelay = 1;
+        [FoldoutGroup("Jump"), SerializeField]
+        private InputActionProperty _jumpAction;
         
         private float _jumpTime;
         private bool _checkedForFall;
@@ -55,7 +57,7 @@ namespace Wgs.FlipSide
         private bool HasJumpStarted()
         {
             return IsGrounded && 
-                   !IsClimbing &&
+                   !CurrentState.HasFlag(PlayerState.Climb) &&
                    !CurrentState.HasFlag(PlayerState.Disabled) &&
                    _jumpAction.action.triggered;
         }

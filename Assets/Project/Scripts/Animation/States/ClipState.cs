@@ -6,7 +6,7 @@ namespace Wgs.FlipSide
     public class ClipState : CharacterState
     {
         [SerializeField] 
-        protected ClipTransition _clipTransition;
+        protected RootMotionClipTransition _clipTransition;
 
         public override void OnEnterState()
         {

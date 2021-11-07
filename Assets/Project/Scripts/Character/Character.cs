@@ -128,7 +128,7 @@ namespace Wgs.FlipSide
         {
             _isForceDetach = true;
         }
-        
+
         #region Helpers
 
         public bool IsOnSlope(Vector3 normal)
