@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,10 +5,9 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Slide")] 
-        [SerializeField] private ClipState _slideState;
-        [SerializeField] private float _minSlideThreshold;
-        [SerializeField] private CharacterSize _slideSize;
+        [FoldoutGroup("Slide"), SerializeField] private ClipState _slideState;
+        [FoldoutGroup("Slide"), SerializeField] private float _minSlideThreshold;
+        [FoldoutGroup("Slide"), SerializeField] private CharacterSize _slideSize;
         
         private float _slopeAngle;
         private float _slideStartTime;

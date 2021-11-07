@@ -22,6 +22,8 @@ namespace Wgs.FlipSide
         public CollisionFlags CollisionFlags { get; private set; }
         public Vector3 Velocity { get; private set; }
         public float TraversalSpeed { get; private set; }
+
+        protected Vector3 _forwardLook;
         
         protected override void Start()
         {
@@ -42,25 +44,33 @@ namespace Wgs.FlipSide
             ProcessCrouch();
             ProcessSprint();
             ProcessJump();
+            ProcessLadderClimb();
             ProcessClimb();
 
-            CollisionFlags = CharacterController.Move(Velocity * Time.deltaTime);
+            if (!Animancer.Animator.applyRootMotion) MoveCharacter(Velocity * Time.deltaTime);
 
             //Rotate character
-            if (IsClimbing)
+            if (CurrentState == PlayerState.Move) _forwardLook = MoveDirection;
+            if (_forwardLook == Vector3.zero) return;
+            
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_forwardLook, transform.up), Time.deltaTime * _rotateSpeed);
+        }
+
+        protected virtual void MoveCharacter(Vector3 motion)
+        {
+            if (CharacterController.enabled)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-Hit.normal, transform.up), Time.deltaTime * _rotateSpeed);
+                CollisionFlags = CharacterController.Move(motion);
             }
             else
             {
-                if (MoveDirection != Vector3.zero)
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+                transform.position += motion;
             }
         }
 
         protected override void CheckGround()
         {
-            if (Time.time - _lastLostContactTime < 0.2f || IsClimbing) return;
+            if (Time.time - _lastLostContactTime < 0.2f || CurrentState.HasFlag(PlayerState.Climb)) return;
             base.CheckGround();
         }
 
@@ -102,6 +112,14 @@ namespace Wgs.FlipSide
                 TrySetState(_fallState);
                 CurrentState = PlayerState.Move;
             }
+        }
+        
+        private void OnAnimatorMove()
+        {
+            if (!Animancer.Animator.applyRootMotion) return;
+            
+            Debug.LogFormat(LOG_FORMAT, nameof(OnAnimatorMove), "Moving character with RM");
+            MoveCharacter(Animancer.Animator.deltaPosition);
         }
     }
 

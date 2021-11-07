@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,14 +12,20 @@ namespace Wgs.FlipSide
             Right
         }
         
-        [Title("Move")] 
-        [SerializeField] private LinearState _moveState;
-        [SerializeField] private float _moveSpeed = 3;
-        [SerializeField] private float _friction = 10;
-        [SerializeField] private float _gravityFactor = 15;
-        [SerializeField] private float _airAcceleration = 20;
-        [SerializeField] private float _maxAirSpeed = 3;
-        [SerializeField] private InputActionProperty _moveAction;
+        [FoldoutGroup("Move"), SerializeField] 
+        private LinearState _moveState;
+        [FoldoutGroup("Move"), SerializeField] 
+        private float _moveSpeed = 3;
+        [FoldoutGroup("Move"), SerializeField] 
+        private float _friction = 10;
+        [FoldoutGroup("Move"), SerializeField] 
+        private float _gravityFactor = 15;
+        [FoldoutGroup("Move"), SerializeField] 
+        private float _airAcceleration = 20;
+        [FoldoutGroup("Move"), SerializeField] 
+        private float _maxAirSpeed = 3;
+        [FoldoutGroup("Move"), SerializeField] 
+        private InputActionProperty _moveAction;
         
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
@@ -33,7 +37,7 @@ namespace Wgs.FlipSide
         {
             CalculateMoveDirection();
 
-            if (IsClimbing) return;
+            if (CurrentState.HasFlag(PlayerState.Climb)) return;
 
             if (IsGrounded)
             {

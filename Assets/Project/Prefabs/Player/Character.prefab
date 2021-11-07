@@ -640,7 +640,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4462638683677419640}
-  - component: {fileID: 5813503963497698850}
   m_Layer: 0
   m_Name: States
   m_TagString: Untagged
@@ -668,23 +667,10 @@ Transform:
   - {fileID: 9140829066085095493}
   - {fileID: 9140829065408742156}
   - {fileID: 9140829065594593414}
+  - {fileID: 6766082902447733786}
   m_Father: {fileID: 4462638684365942664}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5813503963497698850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4462638683677419623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87d79d931711ee498359fe32e44b344, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveState: {fileID: 0}
-  _fallState: {fileID: 0}
 --- !u!1 &4462638683724248552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,6 +1364,7 @@ MonoBehaviour:
   - {fileID: 9140829066085095492}
   - {fileID: 9140829065408742155}
   - {fileID: 9140829065594593412}
+  - {fileID: 2196875756096405324}
   _traversableLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -1390,7 +1377,7 @@ MonoBehaviour:
   _climbableLayers:
     serializedVersion: 2
     m_Bits: 64
-  _climbState: {fileID: 9140829065594593412}
+  freeClimbState: {fileID: 0}
   _validClimbAngle: 30
   _attachThreshold: 0.2
   _reattachDelay: 0.5
@@ -1411,8 +1398,6 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
-  moveInfo:
-    MoveDirections: 0
   _crouchState: {fileID: 4462638684832974657}
   _crouchSpeed: 1.5
   _crouchSize:
@@ -1444,10 +1429,18 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -6273983711228334387, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _ladderClimbState: {fileID: 2196875756096405324}
   _ladderLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  _ladderCheckDistance: 0
+    m_Bits: 128
+  _minLadderDistance: 0.3
+  _minLadderHeight: 0.1
+  _ladderCheckAngle: 30
+  _ladderMoveSpeed: 1
+  _ladderCharacterSize:
+    Height: 1.3
+    YOffset: 0
+  isHittingLadder: 0
   _moveState: {fileID: 4462638684797277444}
   _moveSpeed: 3.5
   _friction: 15
@@ -2790,6 +2783,95 @@ Transform:
   m_Father: {fileID: 4462638684307409516}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6454014445355977271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6766082902447733786}
+  - component: {fileID: 2196875756096405324}
+  m_Layer: 0
+  m_Name: LadderClimbState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6766082902447733786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454014445355977271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4462638683677419640}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2196875756096405324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454014445355977271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5680c9584a303a444ba35e08660cc1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _linearMixerTransition:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Speed: 1
+    _Animations:
+    - {fileID: -5782282097668300922, guid: b676009953fa74244a901d0a26e7ffa1, type: 3}
+    - {fileID: 7400000, guid: 61ebc5536a7b14f499a3ff7ca0e32fa6, type: 2}
+    - {fileID: -203655887218126122, guid: b676009953fa74244a901d0a26e7ffa1, type: 3}
+    _Speeds:
+    - -1
+    - 1
+    - 1
+    _SynchronizeChildren: 
+    _Thresholds:
+    - -1
+    - 0
+    - 1
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
+  _ladderClimbUp:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - NaN
+      _Callbacks:
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 4462638684365942773}
+            m_TargetAssemblyTypeName: Wgs.FlipSide.PlayerCharacter, wgs.flipside
+            m_MethodName: LadderClimbComplete
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 05fa2a71286cbcd4aacaccb57ff8532a, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: 0
 --- !u!1 &9140829065408742157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,7 +2950,7 @@ GameObject:
   - component: {fileID: 9140829065594593414}
   - component: {fileID: 9140829065594593412}
   m_Layer: 0
-  m_Name: ClimbState
+  m_Name: FreeClimbState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

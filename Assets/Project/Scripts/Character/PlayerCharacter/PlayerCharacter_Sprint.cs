@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,14 +6,19 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Sprint")] 
-        [SerializeField] private ClipState _sprintState;
-        [SerializeField] private float _sprintSpeed;
-        [SerializeField, Range(0, 1)] private float _sprintThreshold = 0.9f;
-        [SerializeField, SuffixLabel("Seconds", true)] private float _sprintDuration = 3;
-        [SerializeField, SuffixLabel("Seconds", true)] private float _sprintCooldown = 1.5f;
-        [SerializeField] private InputActionProperty _sprintAction;
-
+         
+        [SerializeField, FoldoutGroup("Sprint")]
+        private ClipState _sprintState;
+        [SerializeField, FoldoutGroup("Sprint")] 
+        private float _sprintSpeed;
+        [SerializeField, Range(0, 1), FoldoutGroup("Sprint")] 
+        private float _sprintThreshold = 0.9f;
+        [SerializeField, FoldoutGroup("Sprint") , SuffixLabel("Seconds", true)] 
+        private float _sprintDuration = 3;
+        [SerializeField, FoldoutGroup("Sprint"), SuffixLabel("Seconds", true)] 
+        private float _sprintCooldown = 1.5f;
+        [SerializeField, FoldoutGroup("Sprint")]
+        private InputActionProperty _sprintAction;
 
         private float _sprintStartTime;
         private float _sprintEndTime;

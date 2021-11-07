@@ -6,11 +6,10 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Roll")] 
-        [SerializeField] private ClipState _rollState;
-        [SerializeField] private float _rollSpeed;
-        [SerializeField] private CharacterSize _rollSize;
-        [SerializeField] private InputActionProperty _rollAction;
+        [FoldoutGroup("Roll"), SerializeField] private ClipState _rollState;
+        [FoldoutGroup("Roll"), SerializeField] private float _rollSpeed;
+        [FoldoutGroup("Roll"), SerializeField] private CharacterSize _rollSize;
+        [FoldoutGroup("Roll"), SerializeField] private InputActionProperty _rollAction;
 
         private float _rollStartTime;
         
