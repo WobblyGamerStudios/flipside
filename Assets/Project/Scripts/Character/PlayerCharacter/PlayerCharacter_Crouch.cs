@@ -6,40 +6,66 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [FoldoutGroup("Crouch"), SerializeField] private LinearState _crouchState;
-        [FoldoutGroup("Crouch"), SerializeField] private float _crouchSpeed;
-        [FoldoutGroup("Crouch"), SerializeField] private CharacterSize _crouchSize;
-        [FoldoutGroup("Crouch"), SerializeField] private InputActionProperty _crouchAction;
+        private const string CROUCH = "Crouch";
+        private const string SLIDE = "Slide";
+        
+        [FoldoutGroup(CROUCH), SerializeField] private LinearState _crouchState;
+        [FoldoutGroup(CROUCH), SerializeField] private float _crouchSpeed;
+        [FoldoutGroup(CROUCH), SerializeField] private CharacterSize _crouchSize;
+        [FoldoutGroup(CROUCH), SerializeField] private InputActionProperty _crouchAction;
+        
+        [FoldoutGroup(SLIDE), SerializeField] private ClipState _slideState;
+        [FoldoutGroup(SLIDE), SerializeField] private float _minSlideThreshold;
+        [FoldoutGroup(SLIDE), SerializeField] private CharacterSize _slideSize;
 
+        private bool _isCrouching => _crouchType == CrouchType.Crouch;
+        private bool _isSliding => _crouchType == CrouchType.Slide;
+        private CrouchType _crouchType;
+        private float _slopeAngle;
+        private float _slideStartTime;
+        
+        private void InitializeCrouch()
+        {
+            _crouchState.Initialize(Animancer);
+            _slideState.Initialize(Animancer);
+        }
+        
         private void ProcessCrouch()
         {
             _crouchState.Value = MoveDirection.magnitude;
-
+            
             if (HasCrouchStarted())
             {
-                CurrentState = PlayerState.Crouch;
-                ModifyCharacterSize(_crouchSize);
-                TrySetState(_crouchState);
+                ApplyCrouch(_isSprinting || _wasSprinting ? CrouchType.Slide : CrouchType.Crouch);
+                return;
             }
             
             if (HasCrouchEnded())
             {
-                CurrentState = PlayerState.Move;
-                ModifyCharacterSize(_defaultSize);
-                CheckFall();
+                ApplyCrouch(CrouchType.None);
+                return;
+            }
+
+            if (_crouchType != CrouchType.Slide) return;
+            
+            _slopeAngle = Vector3.Angle(GroundNormal, transform.forward);
+                
+            if (_slopeAngle > 90 + _minSlideThreshold)
+            {
+                SlideComplete();
             }
         }
 
         private bool HasCrouchStarted()
         {
-            return CurrentState == PlayerState.Move &&
+            return _crouchType == CrouchType.None &&
                    IsGrounded && 
                    IsCrouchAbovePressPoint();
         }
 
         private bool HasCrouchEnded()
         {
-            return CurrentState == PlayerState.Crouch &&
+            return _crouchType != CrouchType.None &&
                    (!IsGrounded ||
                     !IsCrouchAbovePressPoint());
         }
@@ -47,6 +73,41 @@ namespace Wgs.FlipSide
         private bool IsCrouchAbovePressPoint()
         {
             return _crouchAction.action.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint;
+        }
+
+        private void ApplyCrouch(CrouchType type)
+        {
+            _crouchType = type;
+            
+            switch (_crouchType)
+            {
+                case CrouchType.Crouch:
+                    ModifyCharacterSize(_crouchSize);
+                    TrySetState(_crouchState);
+                    break;
+                case CrouchType.Slide:
+                    _slideStartTime = Time.time;
+                    ModifyCharacterSize(_slideSize);
+                    TrySetState(_slideState);
+                    break;
+                case CrouchType.None:
+                    ModifyCharacterSize(_defaultSize);
+                    if (State == State.Falling) return;
+                    TrySetState(_moveState);
+                    break;
+            }
+        }
+
+        public void SlideComplete()
+        {
+            ApplyCrouch(IsCrouchAbovePressPoint() ? CrouchType.Crouch : CrouchType.None);
+        }
+
+        public enum CrouchType
+        {
+            None = 0,
+            Crouch, 
+            Slide
         }
     }
 }

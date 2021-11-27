@@ -52,6 +52,7 @@ MonoBehaviour:
     _Clip: {fileID: -3185209899490993639, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &4462638683182765721
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +385,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: f79364e934817c3419f06d0d65fadc51, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &4462638683418089191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,17 +1356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a7e4bed0384184fa2194871d55b1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterStates:
-  - {fileID: 4462638684797277444}
-  - {fileID: 4462638684832974657}
-  - {fileID: 4462638683414627146}
-  - {fileID: 4462638684752378114}
-  - {fileID: 2692051119735414589}
-  - {fileID: 9140829065603394435}
-  - {fileID: 9140829066085095492}
-  - {fileID: 9140829065408742155}
-  - {fileID: 9140829065594593412}
-  - {fileID: 2196875756096405324}
   _traversableLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -1377,7 +1368,7 @@ MonoBehaviour:
   _climbableLayers:
     serializedVersion: 2
     m_Bits: 64
-  freeClimbState: {fileID: 0}
+  _freeClimbState: {fileID: 0}
   _validClimbAngle: 30
   _attachThreshold: 0.2
   _reattachDelay: 0.5
@@ -1436,11 +1427,11 @@ MonoBehaviour:
   _minLadderDistance: 0.3
   _minLadderHeight: 0.1
   _ladderCheckAngle: 30
-  _ladderMoveSpeed: 1
+  _ladderClimbSpeed: 1
+  _ladderEndClimbSpeed: 1.5
   _ladderCharacterSize:
     Height: 1.3
     YOffset: 0
-  isHittingLadder: 0
   _moveState: {fileID: 4462638684797277444}
   _moveSpeed: 3.5
   _friction: 15
@@ -1923,6 +1914,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 9ea1151cc02582d4580a25a12217e770, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &4462638684753394866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2864,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 05fa2a71286cbcd4aacaccb57ff8532a, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &9140829065408742157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,6 +2932,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 038782dd21516ff44a11a691d57722d7, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &9140829065594593415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,6 +3102,7 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 8f7fcd21d5b737c46adba87a166c634e, type: 3}
     _Speed: 1.25
     _NormalizedStartTime: 0
+    _applyRootMotion: 0
 --- !u!1 &9140829066085095494
 GameObject:
   m_ObjectHideFlags: 0
@@ -3160,3 +3155,4 @@ MonoBehaviour:
     _Clip: {fileID: -203655887218126122, guid: 247d092468dce3447bc7320566da5c3e, type: 3}
     _Speed: 1
     _NormalizedStartTime: 0
+    _applyRootMotion: 0

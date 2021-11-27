@@ -6,37 +6,53 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [FoldoutGroup("Roll"), SerializeField] private ClipState _rollState;
-        [FoldoutGroup("Roll"), SerializeField] private float _rollSpeed;
-        [FoldoutGroup("Roll"), SerializeField] private CharacterSize _rollSize;
-        [FoldoutGroup("Roll"), SerializeField] private InputActionProperty _rollAction;
+        private const string ROLL = "Roll";
+        
+        [FoldoutGroup(ROLL), SerializeField] private ClipState _rollState;
+        [FoldoutGroup(ROLL), SerializeField] private float _rollSpeed;
+        [FoldoutGroup(ROLL), SerializeField] private float _rollDurationOffset;
+        [FoldoutGroup(ROLL), SerializeField] private CharacterSize _rollSize;
+        [FoldoutGroup(ROLL), SerializeField] private InputActionProperty _rollAction;
 
+        private bool _isRolling;
         private float _rollStartTime;
+        
+        private void InitializeRoll()
+        {
+            _rollState.Initialize(Animancer);
+        }
         
         private void ProcessRoll()
         {
             if (HasRollStarted())
             {
-                CurrentState = PlayerState.Roll | PlayerState.Disabled | PlayerState.IgnoreFall;
+                _isRolling = true;
                 _rollStartTime = Time.time;
                 ModifyCharacterSize(_rollSize);
                 TrySetState(_rollState);
+                return;
+            }
+
+            if (HasRollEnded())
+            {
+                _isRolling = false;
+                ModifyCharacterSize(_defaultSize);
+                TrySetState(_moveState);
             }
         }
 
         private bool HasRollStarted()
         {
-            return (CurrentState == PlayerState.Move || CurrentState == PlayerState.Sprint) &&
+            return !_isRolling &&
                    IsGrounded &&
                    MoveDirection.magnitude > InputSystem.settings.defaultDeadzoneMin &&
                    _rollAction.action.triggered;
         }
 
-        public void RollComplete()
+        private bool HasRollEnded()
         {
-            CurrentState = PlayerState.Move;
-            ModifyCharacterSize(_defaultSize);
-            TrySetState(_moveState);
+            return _isRolling &&
+                   Time.time - _rollStartTime >= (_rollState.ClipTransition.Clip.length - _rollDurationOffset);
         }
     }
 }

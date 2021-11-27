@@ -6,25 +6,27 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
+        private const string MOVE = "Move";
+        
         public enum GroundedFoot
         {
             Left, 
             Right
         }
         
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private LinearState _moveState;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private float _moveSpeed = 3;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private float _friction = 10;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private float _gravityFactor = 15;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private float _airAcceleration = 20;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private float _maxAirSpeed = 3;
-        [FoldoutGroup("Move"), SerializeField] 
+        [FoldoutGroup(MOVE), SerializeField] 
         private InputActionProperty _moveAction;
         
         public Vector2 MoveInput { get; private set; }
@@ -32,12 +34,17 @@ namespace Wgs.FlipSide
 
         private Vector3 _moveInputClamped;
         private GroundedFoot _groundedFoot;
+
+        private void InitializeMove()
+        {
+            _moveState.Initialize(Animancer);
+        }
         
         private void ProcessMovement()
         {
             CalculateMoveDirection();
 
-            if (CurrentState.HasFlag(PlayerState.Climb)) return;
+            if (State == State.Climbing) return;
 
             if (IsGrounded)
             {
@@ -76,7 +83,7 @@ namespace Wgs.FlipSide
             var projection = Vector3.ProjectOnPlane(_cameraTransform.rotation * Vector3.forward, transform.up).normalized;
 
             var targetDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
-            if (CurrentState.HasFlag(PlayerState.Disabled))
+            if (_isSliding || _isRolling)
             {
                 MoveDirection = Vector3.Lerp(MoveDirection, targetDirection, 3 * Time.deltaTime);
             }
