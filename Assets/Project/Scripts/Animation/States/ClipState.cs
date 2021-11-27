@@ -7,6 +7,7 @@ namespace Wgs.FlipSide
     {
         [SerializeField] 
         protected RootMotionClipTransition _clipTransition;
+        public RootMotionClipTransition ClipTransition => _clipTransition;
 
         public override void OnEnterState()
         {

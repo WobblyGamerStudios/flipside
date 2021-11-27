@@ -6,25 +6,34 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [FoldoutGroup("Jump"), SerializeField] 
-        private ClipState _leftFootJumpState;
-        [FoldoutGroup("Jump"), SerializeField] 
-        private ClipState _rightFootJumpState;
-        [FoldoutGroup("Jump"), SerializeField] 
-        private float _jumpPower;
-        [FoldoutGroup("Jump"), SerializeField] 
-        private float _checkFallDelay = 1;
-        [FoldoutGroup("Jump"), SerializeField]
-        private InputActionProperty _jumpAction;
+        private const string JUMP = "Jump";
         
+        [FoldoutGroup(JUMP), SerializeField] 
+        private ClipState _leftFootJumpState;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private ClipState _rightFootJumpState;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private float _jumpPower;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private float _checkFallDelay = 1;
+        [FoldoutGroup(JUMP), SerializeField]
+        private InputActionProperty _jumpAction;
+
+        private bool _isJumping;
         private float _jumpTime;
         private bool _checkedForFall;
+        
+        private void InitializeJump()
+        {
+            _leftFootJumpState.Initialize(Animancer);
+            _rightFootJumpState.Initialize(Animancer);
+        }
         
         private void ProcessJump()
         {
             if (HasJumpStarted())
             {
-                CurrentState = PlayerState.Jump | PlayerState.IgnoreFall;
+                _isJumping = true;
                 _isForceDetach = true;
                 Velocity += MoveDirection + (Vector3.up * _jumpPower);
                 Debug.DrawRay(transform.position, Velocity.normalized * 1, Color.yellow, 5);
@@ -42,23 +51,18 @@ namespace Wgs.FlipSide
                 }
             }
 
-            if (!CurrentState.HasFlag(PlayerState.Jump)) return;
+            if (!_isJumping) return;
             
             if (Time.time - _jumpTime >= _checkFallDelay)
             {
-                CurrentState &= ~PlayerState.IgnoreFall;
+                _isJumping = false;
+                CheckFall();
             }
-            
-            if (CurrentState.HasFlag(PlayerState.IgnoreFall)) return;
-            
-            CheckFall();
         }
 
         private bool HasJumpStarted()
         {
-            return IsGrounded && 
-                   !CurrentState.HasFlag(PlayerState.Climb) &&
-                   !CurrentState.HasFlag(PlayerState.Disabled) &&
+            return IsGrounded &&
                    _jumpAction.action.triggered;
         }
     }
