@@ -39,7 +39,6 @@ namespace Wgs.FlipSide
             ProcessRoll();
             ProcessCrouch();
             ProcessJump();
-            //ProcessLadderClimb();
             ProcessClimb();
 
             //Move player
@@ -103,7 +102,6 @@ namespace Wgs.FlipSide
 
         private void OnDrawGizmos()
         {
-            DrawClimbGizmos();
         }
     }
     

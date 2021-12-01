@@ -19,7 +19,7 @@ namespace Wgs.FlipSide
         
         public void CheckFall()
         {
-            if (IsGrounded || State == State.Falling || _isJumping || _isRolling) return;
+            if (IsGrounded || State == State.Falling || State == State.Climbing || _isJumping || _isRolling) return;
             
             var fallRay = new Ray(transform.position, Vector3.down);
             Debug.DrawRay(fallRay.origin, fallRay.direction * _minFallDistance, Color.red, 3);

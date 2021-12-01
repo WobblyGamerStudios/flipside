@@ -25,7 +25,11 @@ namespace Wgs.FlipSide
         {
             if (State == State.Climbing)
             {
-                
+                var climbRay = new Ray(CharacterPosition(CharacterController.height), transform.forward);
+                if (Physics.Raycast(climbRay, out var hit, _wallCheckDist, _wallLayerMask))
+                {
+                    return -hit.normal;
+                }
             }
 
             return MoveDirection;
