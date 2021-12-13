@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 376082d0c19ba5e4a858843fc291dcda
+guid: 7f3755e1518ab01449997cc9261a85aa
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: climbdown
+    second: Braced Hanf Left Shimmy
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,14 +35,14 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: climbdown
+      name: Braced Hanf Left Shimmy
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 28
       wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
+      orientationOffsetY: -6
+      level: 1.35
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -50,11 +50,11 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

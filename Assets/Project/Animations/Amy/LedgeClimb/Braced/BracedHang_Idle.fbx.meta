@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: 33929358b27c3684ab4fa419fe3b0381
+guid: 03893eadcd1ba0249913a1df922cca4a
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: climbup
-  - first:
-      74: -2256620083486254225
-    second: leanup
+    second: Braced Hang Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -29,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 0
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -38,14 +35,14 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: climbup
+      name: Braced Hang Idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 56
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0.5
+      level: 1.35
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0

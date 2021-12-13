@@ -4,6 +4,7 @@ using Animancer;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Wgs.Core;
 
 namespace Wgs.FlipSide
 {
@@ -15,12 +16,14 @@ namespace Wgs.FlipSide
         private LayerMask _wallLayerMask;
         [FoldoutGroup(CLIMB), SerializeField] 
         private LayerMask _ledgeLayerMask;
-        [FoldoutGroup(CLIMB), SerializeField]
-        private ClipState _climbState;
+        [FoldoutGroup(CLIMB), SerializeField] 
+        private LedgeClimbState _ledgeClimbState;
+        [FoldoutGroup(CLIMB), SerializeField] 
+        private float _ledgeClimbSpeed;
         [FoldoutGroup(CLIMB), SerializeField] 
         private float _distAboveHead;
         [FoldoutGroup(CLIMB), SerializeField] 
-        private float _wallCheckDist;
+        private float _distInFront;
         [FoldoutGroup(CLIMB), SerializeField] 
         private float _minClimbDist;
         [FoldoutGroup(CLIMB), SerializeField] 
@@ -30,75 +33,94 @@ namespace Wgs.FlipSide
         [FoldoutGroup(CLIMB), SerializeField] 
         private InputActionProperty _dropAction;
 
+        private Vector3 _bracedPoint;
+        private Vector3 _freeHangPoint;
+
         private void InitializeClimb()
         {
-            _climbState.Initialize(Animancer);
+            _ledgeClimbState.Initialize(Animancer);
         }
         
         private void ProcessClimb()
         {
-            if (State != State.Climbing && CanAttachToLedge(out Vector3 attachPoint))
+            if (State != State.Climbing && CanAttachToLedge())
             {
                 State = State.Climbing;
                 _lastLostContactTime = Time.time;
                 Velocity = Vector3.zero;
                 ModifyCharacterSize(_climbSize);
-                CharacterController.Warp(attachPoint + Vector3.down * CharacterController.height);
-                TrySetState(_climbState);
+                CharacterController.Warp(_bracedPoint);
+                CharacterController.enabled = false;
+                TrySetState(_ledgeClimbState);
             }
 
-            if (State == State.Climbing && _dropAction.action.triggered)
+            if (State == State.Climbing)
             {
-                State = State.Ground;
-                TrySetState(_moveState);
-                ModifyCharacterSize(_defaultSize);
-                CheckFall();
-            }
-        }
-
-        private bool CanAttachToLedge(out Vector3 position)
-        {
-            position = default;
-            
-            Debug.DrawLine(CharacterPosition(CharacterController.height), CharacterPosition(CharacterController.height + _distAboveHead));
-
-            var wallRay = new Ray(CharacterPosition(CharacterController.height + _distAboveHead), transform.forward);
-            if (Physics.Raycast(wallRay, out var wallHit, _wallCheckDist, _wallLayerMask))
-            {
-                Debug.DrawRay(wallRay.origin, wallRay.direction * _wallCheckDist, Color.green);
-
-                var ledgeRay = new Ray(wallHit.point, Vector3.down);
-                if (Physics.Raycast(ledgeRay, out var ledgeHit, _distAboveHead, _ledgeLayerMask))
+                //Check if we can move left/right
+                //Check if we can jump left/Right
+                //Check if we can drop down
+                //Check if we can jump up
+                //Check if we can climb up
+             
+                //Move character
+                transform.position =
+                    Vector3.MoveTowards(transform.position, Vector3.Lerp(_bracedPoint, _freeHangPoint, _ledgeClimbState.BracedToFreeHangBlend), Time.deltaTime * _ledgeClimbSpeed);
+                
+                _ledgeClimbState.Value = Mathf.Abs(MoveInput.x) > InputSystem.settings.defaultDeadzoneMin ? MoveInput.x : 0;
+                
+                if (_dropAction.action.triggered)
                 {
-                    Debug.DrawRay(ledgeRay.origin, ledgeRay.direction * _distAboveHead, Color.green);
-                    
-                    //Hit ledge, attach
-                    Debug.Log("Attach to ledge");
-                    position = ledgeHit.point + wallHit.normal * _minClimbDist;
-                    return true;
+                    State = State.Ground;
+                    TrySetState(_moveState);
+                    ModifyCharacterSize(_defaultSize);
+                    CharacterController.enabled = true;
+                    CheckFall();
                 }
             }
-            else
-            {
-                Debug.DrawRay(wallRay.origin, wallRay.direction * _wallCheckDist);
-            }
-
-            return false;
         }
 
-        private bool CanStartClimbing()
+        private bool CanAttachToLedge()
         {
-            return false;
+            var topOfHead = CharacterPosition(CharacterController.height);
+            var aboveHead = topOfHead + Vector3.up * _distAboveHead;
+            var inFrontOfHead = aboveHead + transform.forward * (CharacterController.radius + _distInFront);
+
+            Debug.DrawLine(topOfHead, aboveHead);
+            Debug.DrawLine(aboveHead, inFrontOfHead);
+
+            var ledgeRay = new Ray(inFrontOfHead, Vector3.down);
+            if (!Physics.Raycast(ledgeRay, out var ledgeHit, _distAboveHead * 2, _ledgeLayerMask)) return false;
+            
+            //Hit ledge, attach
+            Debug.Log("Attach to ledge");
+
+            var filter = ledgeHit.transform.GetComponent<MeshFilter>();
+            var mesh = filter.mesh;
+
+            var index = ledgeHit.triangleIndex * 3;
+            _freeHangPoint = ledgeHit.transform.TransformPoint(mesh.vertices[mesh.triangles[index + 1]]);
+            _bracedPoint = _freeHangPoint + (-ledgeHit.transform.forward * 0.25f);
+
+            return true;
         }
 
-        private bool HasClimbStarted()
+        private void DetermineHorizontalStatus(out bool canMoveLeft, out bool canMoveRight, out bool canHopLeft, out bool canHopRight)
         {
-            return false;
+            canMoveLeft = default;
+            canMoveRight = default;
+            canHopLeft = default;
+            canHopRight = default;
+        }
+        
+        private void DetermineVerticalStatus(out bool canMoveUp, out bool canDropDown)
+        {
+            canMoveUp = default;
+            canDropDown = default;
         }
 
-        private bool HasClimbEnded()
+        private void DrawClimbGizmos()
         {
-            return false;
+            Gizmos.color = CoreColor.Orange;
         }
     }
 }

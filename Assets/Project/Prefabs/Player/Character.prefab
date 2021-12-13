@@ -1364,14 +1364,14 @@ MonoBehaviour:
   State: 0
   _wallLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   _ledgeLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  _climbState: {fileID: 5367889284363895341}
+    m_Bits: 512
+  _ledgeClimbState: {fileID: 1280282745293234478}
   _distAboveHead: 0.15
   _wallCheckDist: 0.5
-  _minClimbDist: 0.4
+  _minClimbDist: 0.39
   _climbSize:
     Height: 1
     YOffset: 0
@@ -1386,6 +1386,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _bracedToFreeHandBlend: 0
+  _ledgeMoveBlend: 0
   _crouchState: {fileID: 4462638684832974657}
   _crouchSpeed: 1.5
   _crouchSize:
@@ -2775,7 +2777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8358672136612857313}
-  - component: {fileID: 5367889284363895341}
+  - component: {fileID: 1280282745293234478}
   m_Layer: 0
   m_Name: ClimbState
   m_TagString: Untagged
@@ -2797,7 +2799,7 @@ Transform:
   m_Father: {fileID: 4462638683677419640}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5367889284363895341
+--- !u!114 &1280282745293234478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2806,19 +2808,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 6122315184387967956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2144706bf621f4439722e60634791aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 7539bf48f6695774ba0cf3c2333239f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clipTransition:
+  _bracedBlendTree:
     _FadeDuration: 0.25
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: -203655887218126122, guid: 03893eadcd1ba0249913a1df922cca4a, type: 3}
     _Speed: 1
-    _NormalizedStartTime: 0
-    _applyRootMotion: 0
+    _Animations:
+    - {fileID: -203655887218126122, guid: 7f3755e1518ab01449997cc9261a85aa, type: 3}
+    - {fileID: -203655887218126122, guid: 03893eadcd1ba0249913a1df922cca4a, type: 3}
+    - {fileID: -203655887218126122, guid: e68404cbe3e70ad40b44688dfc645d17, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds:
+    - -1
+    - 0
+    - 1
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
+  _freeHangBlendTree:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Speed: 1
+    _Animations:
+    - {fileID: -203655887218126122, guid: 825cc7d5e9d9a8e459969ce20a280dae, type: 3}
+    - {fileID: -203655887218126122, guid: 64d65f7821dd1f0488319df316723bd0, type: 3}
+    - {fileID: -203655887218126122, guid: e81194f2bbb70c0489ca2626996a8d53, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds:
+    - -1
+    - 0
+    - 1
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
 --- !u!1 &6454014445355977271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,23 +2917,8 @@ MonoBehaviour:
   _ladderClimbUp:
     _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes:
-      - NaN
-      _Callbacks:
-      - m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 4462638684365942773}
-            m_TargetAssemblyTypeName: Wgs.FlipSide.PlayerCharacter, wgs.flipside
-            m_MethodName: LadderClimbComplete
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+      _NormalizedTimes: []
+      _Callbacks: []
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: 05fa2a71286cbcd4aacaccb57ff8532a, type: 3}
     _Speed: 1

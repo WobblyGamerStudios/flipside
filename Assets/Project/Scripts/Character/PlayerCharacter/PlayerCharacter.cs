@@ -102,6 +102,7 @@ namespace Wgs.FlipSide
 
         private void OnDrawGizmos()
         {
+            DrawClimbGizmos();
         }
     }
     

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 03893eadcd1ba0249913a1df922cca4a
+guid: 825cc7d5e9d9a8e459969ce20a280dae
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: hangidle
+    second: Free Hang Left Shimmy
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,14 +35,14 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: hangidle
+      name: Free Hang Left Shimmy
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 56
+      lastFrame: 33
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 1.95
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -50,7 +50,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
