@@ -1,3 +1,4 @@
+using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Wgs.FlipSide
     public partial class PlayerCharacter : Character
     {
         private const string LOG_FORMAT = nameof(PlayerCharacter) + ".{0} :: {1}";
-
+        
         [ReadOnly] public State State;
 
         public CollisionFlags CollisionFlags { get; private set; }
@@ -15,6 +16,8 @@ namespace Wgs.FlipSide
 
         protected override void Start()
         {
+            PlayerManager.RegisterPlayer(this);
+            
             base.Start();
 
             InitializeFall();
