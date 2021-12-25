@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Wgs.Core;
@@ -20,13 +19,13 @@ namespace Wgs.FlipSide
             return base.InitializeManager();
         }
 
-        private void OnControlSchemeChanged(InputManager.ControlScheme scheme)
+        private void OnControlSchemeChanged(ControlScheme scheme)
         {
             Debug.LogFormat(LOG_FORMAT, nameof(OnControlSchemeChanged), $"InputManager control scheme changed to {scheme}");
 
-            _keyboardUi.SetActive(scheme == InputManager.ControlScheme.Keyboard);
-            _xboxGamepadUi.SetActive(scheme == InputManager.ControlScheme.XboxGamepad);
-            _psGamepadUi.SetActive(scheme == InputManager.ControlScheme.PlayStationGamepad);
+            _keyboardUi.SetActive(scheme == ControlScheme.Keyboard);
+            _xboxGamepadUi.SetActive(scheme == ControlScheme.XboxGamepad);
+            _psGamepadUi.SetActive(scheme == ControlScheme.PlayStationGamepad);
         }
     }
 }
