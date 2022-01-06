@@ -9,7 +9,6 @@ namespace Wgs.FlipSide
     {
         private const string ROTATION = "Rotation";
         
-        [FoldoutGroup(ROTATION), SerializeField] private Transform _cameraTransform;
         [FoldoutGroup(ROTATION), SerializeField] private float _rotateSpeed = 20;
         
         private void ProcessRotation()
