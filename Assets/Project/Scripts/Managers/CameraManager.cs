@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Wgs.Core;
 
@@ -11,12 +12,14 @@ namespace Wgs.FlipSide
         public static Camera Main { get; private set; }
         public static Transform MainTransform { get; private set; }
         public static CinemachineBrain Brain { get; private set; }
+        [ShowInInspector]
         public static CinemachineVirtualCamera Current { get; private set; }
 
-        private static Dictionary<string, CinemachineVirtualCamera> _cameraLookUp =
-            new Dictionary<string, CinemachineVirtualCamera>();
+        [ShowInInspector]
+        private static Dictionary<int, CinemachineVirtualCamera> _cameraLookUp =
+            new Dictionary<int, CinemachineVirtualCamera>();
 
-        private PlayerCharacter _currentPlayer;
+        private static PlayerCharacter _currentPlayer;
         
         #region MonoBehaviour
 
@@ -50,34 +53,39 @@ namespace Wgs.FlipSide
             yield return base.InitializeManager();
         }
 
-        public static void RegisterCamera(CinemachineVirtualCamera camera, string tag = "", bool setToPriority = false)
+        public static void RegisterCamera(CinemachineVirtualCamera camera, bool setToPriority = false)
         {
-            if (string.IsNullOrEmpty(tag)) tag = camera.name;
+            if (camera == null) return;
 
-            _cameraLookUp[tag] = camera;
+            var instanceId = camera.GetInstanceID();
+            if (instanceId == -1) return;
+            
+            _cameraLookUp[instanceId] = camera;
 
             if (setToPriority) SwitchToCamera(camera);
             else camera.Priority = 0;
         }
         
-        public static void UnRegisterCamera(CinemachineVirtualCamera camera, string tag = "")
+        public static void UnRegisterCamera(CinemachineVirtualCamera camera)
         {
-            if (string.IsNullOrEmpty(tag)) tag = camera.name;
+            if (camera == null) return;
 
-            if (!_cameraLookUp.ContainsKey(tag)) return;
+            var instanceId = camera.GetInstanceID();
+            if (instanceId == -1) return;
+            if (!_cameraLookUp.ContainsKey(instanceId)) return;
 
-            _cameraLookUp.Remove(tag);
-        }
-
-        public static void SwitchToCamera(string tag)
-        {
-            if (!_cameraLookUp.ContainsKey(tag)) return;
-            
-            SwitchToCamera(_cameraLookUp[tag]);
+            _cameraLookUp.Remove(instanceId);
         }
 
         public static void SwitchToCamera(CinemachineVirtualCamera camera)
         {
+            if (camera == null) camera = _currentPlayer.CharacterCamera;
+            
+            var instanceId = camera.GetInstanceID();
+            if (instanceId == -1) return;
+
+            if (!_cameraLookUp.ContainsKey(instanceId)) return;
+            
             if (Current) Current.Priority = 0;
             camera.Priority = 10;
             Current = camera;
