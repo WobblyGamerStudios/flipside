@@ -1,3 +1,5 @@
+using System;
+using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,8 +8,11 @@ namespace Wgs.FlipSide
     public partial class PlayerCharacter : Character
     {
         private const string LOG_FORMAT = nameof(PlayerCharacter) + ".{0} :: {1}";
-
+        
         [ReadOnly] public State State;
+
+        [SerializeField] private CinemachineVirtualCamera _characterCamera;
+        public CinemachineVirtualCamera CharacterCamera => _characterCamera;
 
         public CollisionFlags CollisionFlags { get; private set; }
         public Vector3 Velocity { get; private set; }
@@ -15,6 +20,9 @@ namespace Wgs.FlipSide
 
         protected override void Start()
         {
+            PlayerManager.RegisterPlayer(this);
+            CameraManager.RegisterCamera(_characterCamera, true);
+            
             base.Start();
 
             InitializeFall();
@@ -26,6 +34,11 @@ namespace Wgs.FlipSide
             InitializeClimb();
 
             TrySetState(_moveState);
+        }
+
+        private void OnDestroy()
+        {
+            CameraManager.UnRegisterCamera(_characterCamera);
         }
 
         protected override void Update()

@@ -80,7 +80,7 @@ namespace Wgs.FlipSide
             MoveInput = _moveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
             _moveInputClamped = Vector3.ClampMagnitude(new Vector3(MoveInput.x, 0, MoveInput.y), 1);
 
-            var projection = Vector3.ProjectOnPlane(_cameraTransform.rotation * Vector3.forward, transform.up).normalized;
+            var projection = Vector3.ProjectOnPlane(CameraManager.MainTransform.rotation * Vector3.forward, transform.up).normalized;
 
             var targetDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
             if (_isSliding || _isRolling)

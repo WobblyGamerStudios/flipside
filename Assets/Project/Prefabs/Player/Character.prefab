@@ -1361,6 +1361,7 @@ MonoBehaviour:
     m_Bits: 55
   _checkDistance: 0.1
   State: 0
+  _playerCamera: {fileID: 0}
   _climbCheckDistance: 0.3
   _groundedCheckOffset: 0.3
   _inAirCheckOffset: 0.3
@@ -1437,7 +1438,6 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
-  _cameraTransform: {fileID: 0}
   _rotateSpeed: 20
   _sprintState: {fileID: 4462638684752378114}
   _sprintSpeed: 6

@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Climbable
   - Ladder
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -42,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WorldUi
+    uniqueID: 862838435
     locked: 0

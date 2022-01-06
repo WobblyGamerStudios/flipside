@@ -1,20 +1,40 @@
-using System.Collections;
-using UnityEngine;
+using System;
 using Wgs.Core;
 
 namespace Wgs.FlipSide
 {
     public class PlayerManager : Manager<PlayerManager>
     {
-	    [SerializeField] private PlayerCharacter _playerPrefab;
-
-	    public PlayerCharacter Player { get; private set; }
+	    public static PlayerCharacter Player { get; private set; }
 	    
-	    protected override IEnumerator InitializeManager()
+	    public static void RegisterPlayer(PlayerCharacter player)
 	    {
-		    Player = Instantiate(_playerPrefab);
+		    if (Player != player)
+		    {
+			    UnRegisterPlayer(Player);
+		    }
+
+		    Player = player;
 		    
-		    return base.InitializeManager();
+		    DontDestroyOnLoad(Player);
+		    
+		    OnPlayerRegisteredEvent?.Invoke(player);
 	    }
+
+	    public static void UnRegisterPlayer(PlayerCharacter player)
+	    {
+		    OnPlayerUnRegisteredEvent?.Invoke(player);
+
+		    if (!player) return;
+		    
+		    Destroy(player.gameObject);
+	    }
+
+	    #region Events
+
+	    public static event Action<PlayerCharacter> OnPlayerRegisteredEvent;
+	    public static event Action<PlayerCharacter> OnPlayerUnRegisteredEvent;
+
+	    #endregion Events
     }
 }
