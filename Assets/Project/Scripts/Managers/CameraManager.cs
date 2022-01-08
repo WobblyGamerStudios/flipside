@@ -61,7 +61,7 @@ namespace Wgs.FlipSide
             if (instanceId == -1) return;
             
             _cameraLookUp[instanceId] = camera;
-
+            
             if (setToPriority) SwitchToCamera(camera);
             else camera.Priority = 0;
         }
@@ -85,8 +85,14 @@ namespace Wgs.FlipSide
             if (instanceId == -1) return;
 
             if (!_cameraLookUp.ContainsKey(instanceId)) return;
+
+            if (Current)
+            {
+                Current.LookAt = null;
+                Current.Priority = 0;
+            }
             
-            if (Current) Current.Priority = 0;
+            if (_currentPlayer) camera.LookAt = _currentPlayer.transform;
             camera.Priority = 10;
             Current = camera;
         }

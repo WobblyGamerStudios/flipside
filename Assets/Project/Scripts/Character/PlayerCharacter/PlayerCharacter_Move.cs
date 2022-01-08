@@ -44,7 +44,7 @@ namespace Wgs.FlipSide
         {
             CalculateMoveDirection();
 
-            if (State == State.Climbing) return;
+            if (State == State.Climbing || _isStraddle) return;
 
             if (IsGrounded)
             {
