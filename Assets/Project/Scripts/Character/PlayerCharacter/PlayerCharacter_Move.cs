@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,32 +6,45 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
+        private const string MOVE = "Move";
+        
         public enum GroundedFoot
         {
             Left, 
             Right
         }
         
-        [Title("Move")] 
-        [SerializeField] private LinearState _moveState;
-        [SerializeField] private float _moveSpeed = 3;
-        [SerializeField] private float _friction = 10;
-        [SerializeField] private float _gravityFactor = 15;
-        [SerializeField] private float _airAcceleration = 20;
-        [SerializeField] private float _maxAirSpeed = 3;
-        [SerializeField] private InputActionProperty _moveAction;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private LinearState _moveState;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private float _moveSpeed = 3;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private float _friction = 10;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private float _gravityFactor = 15;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private float _airAcceleration = 20;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private float _maxAirSpeed = 3;
+        [FoldoutGroup(MOVE), SerializeField] 
+        private InputActionProperty _moveAction;
         
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
 
         private Vector3 _moveInputClamped;
         private GroundedFoot _groundedFoot;
+
+        private void InitializeMove()
+        {
+            _moveState.Initialize(Animancer);
+        }
         
         private void ProcessMovement()
         {
             CalculateMoveDirection();
 
-            if (IsClimbing) return;
+            if (State == State.Climbing || _isStraddle) return;
 
             if (IsGrounded)
             {
@@ -69,10 +80,10 @@ namespace Wgs.FlipSide
             MoveInput = _moveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
             _moveInputClamped = Vector3.ClampMagnitude(new Vector3(MoveInput.x, 0, MoveInput.y), 1);
 
-            var projection = Vector3.ProjectOnPlane(_cameraTransform.rotation * Vector3.forward, transform.up).normalized;
+            var projection = Vector3.ProjectOnPlane(CameraManager.MainTransform.rotation * Vector3.forward, transform.up).normalized;
 
             var targetDirection = Quaternion.LookRotation(projection, transform.up) * _moveInputClamped;
-            if (IsSliding || IsRolling)
+            if (_isSliding || _isRolling)
             {
                 MoveDirection = Vector3.Lerp(MoveDirection, targetDirection, 3 * Time.deltaTime);
             }

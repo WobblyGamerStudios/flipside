@@ -8,9 +8,11 @@ namespace Wgs.FlipSide
     [RequireComponent(typeof(AnimancerComponent), typeof(CharacterController))]
     public abstract class Character : MonoBehaviour
     {
+        private const string LOG_FORMAT = nameof(Character) + ".{0} :: {1}";
+        
         [SerializeField] protected LayerMask _traversableLayers = -1;
         [SerializeField] protected float _checkDistance = 0.1f;
-        
+
         public AnimancerComponent Animancer { get; protected set; }
         public StateMachine<CharacterState>.WithDefault StateMachine { get; } = new StateMachine<CharacterState>.WithDefault();
         public CharacterController CharacterController { get; protected set; }
@@ -36,6 +38,8 @@ namespace Wgs.FlipSide
 
             _defaultSize.Height = CharacterController.height;
         }
+
+        protected virtual void Start() { }
 
         protected virtual void Update()
         {
@@ -118,7 +122,7 @@ namespace Wgs.FlipSide
         {
             _isForceDetach = true;
         }
-        
+
         #region Helpers
 
         public bool IsOnSlope(Vector3 normal)
@@ -136,14 +140,9 @@ namespace Wgs.FlipSide
             return transform.position + transform.up * (atHeight - CharacterController.radius);
         }
 
-        public Vector3 CharacterTop()
+        public Vector3 CharacterPosition(float height = 0)
         {
-            return transform.position + transform.up * CharacterController.height;
-        }
-
-        public Vector3 CharacterCenter()
-        {
-            return transform.position + transform.up * (CharacterController.height * 0.5f);
+            return transform.position + transform.up * height;
         }
 
         #endregion Helpers
@@ -155,7 +154,12 @@ namespace Wgs.FlipSide
 
         #endregion Events
 
-        public virtual bool TrySetState(CharacterState state) => StateMachine.TrySetState(state);
+        public virtual bool TrySetState(CharacterState state)
+        {
+            Debug.LogFormat(LOG_FORMAT, nameof(TrySetState), $"Trying to move from {StateMachine.CurrentState} to {state}");
+            
+            return StateMachine.TrySetState(state);
+        } 
     }
 
     [Serializable]

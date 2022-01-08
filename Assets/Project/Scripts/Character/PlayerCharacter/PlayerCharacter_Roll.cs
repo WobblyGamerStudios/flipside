@@ -6,43 +6,53 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Roll")] 
-        [SerializeField] private ClipState _rollState;
-        [SerializeField] private float _rollSpeed;
-        [SerializeField] private CharacterSize _rollSize;
-        [SerializeField] private InputActionProperty _rollAction;
+        private const string ROLL = "Roll";
+        
+        [FoldoutGroup(ROLL), SerializeField] private ClipState _rollState;
+        [FoldoutGroup(ROLL), SerializeField] private float _rollSpeed;
+        [FoldoutGroup(ROLL), SerializeField] private float _rollDurationOffset;
+        [FoldoutGroup(ROLL), SerializeField] private CharacterSize _rollSize;
+        [FoldoutGroup(ROLL), SerializeField] private InputActionProperty _rollAction;
 
-        public bool IsRolling { get; private set; }
-
+        private bool _isRolling;
         private float _rollStartTime;
+        
+        private void InitializeRoll()
+        {
+            _rollState.Initialize(Animancer);
+        }
         
         private void ProcessRoll()
         {
             if (HasRollStarted())
             {
-                IsRolling = true;
+                _isRolling = true;
                 _rollStartTime = Time.time;
-                IsSprinting = false;
                 ModifyCharacterSize(_rollSize);
                 TrySetState(_rollState);
+                return;
+            }
+
+            if (HasRollEnded())
+            {
+                _isRolling = false;
+                ModifyCharacterSize(_defaultSize);
+                TrySetState(_moveState);
             }
         }
 
         private bool HasRollStarted()
         {
-            return !IsRolling &&
-                   !IsSliding &&
-                   !IsClimbing &&
+            return !_isRolling &&
                    IsGrounded &&
                    MoveDirection.magnitude > InputSystem.settings.defaultDeadzoneMin &&
                    _rollAction.action.triggered;
         }
 
-        public void RollComplete()
+        private bool HasRollEnded()
         {
-            IsRolling = false;
-            ModifyCharacterSize(_defaultSize);
-            TrySetState(_moveState);
+            return _isRolling &&
+                   Time.time - _rollStartTime >= (_rollState.ClipTransition.Clip.length - _rollDurationOffset);
         }
     }
 }

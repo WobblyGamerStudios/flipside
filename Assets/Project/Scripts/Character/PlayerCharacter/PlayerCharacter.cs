@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,31 +8,38 @@ namespace Wgs.FlipSide
     public partial class PlayerCharacter : Character
     {
         private const string LOG_FORMAT = nameof(PlayerCharacter) + ".{0} :: {1}";
+        
+        [ReadOnly] public State State;
 
-        [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private float _rotateSpeed = 20;
-        
-        [Title("Fall")]
-        [SerializeField] private ClipState _fallState;
-        [SerializeField] private float _minFallDistance = 0.5f;
-        
+        [SerializeField] private CinemachineVirtualCamera _characterCamera;
+        public CinemachineVirtualCamera CharacterCamera => _characterCamera;
+
         public CollisionFlags CollisionFlags { get; private set; }
         public Vector3 Velocity { get; private set; }
         public float TraversalSpeed { get; private set; }
-        
-        private void Start()
+
+        protected override void Start()
         {
-            _moveState.Initialize(Animancer);
-            _fallState.Initialize(Animancer);
-            _leftFootJumpState.Initialize(Animancer);
-            _rightFootJumpState.Initialize(Animancer);
-            _slideState.Initialize(Animancer);
-            _crouchState.Initialize(Animancer);
-            _sprintState.Initialize(Animancer);
-            _rollState.Initialize(Animancer);
-            _climbState.Initialize(Animancer);
+            PlayerManager.RegisterPlayer(this);
+            CameraManager.RegisterCamera(_characterCamera, true);
             
+            base.Start();
+
+            InitializeFall();
+            InitializeMove();
+            InitializeSprint();
+            InitializeRoll();
+            InitializeCrouch();
+            InitializeJump();
+            InitializeClimb();
+            InitializeStraddle();
+
             TrySetState(_moveState);
+        }
+
+        private void OnDestroy()
+        {
+            CameraManager.UnRegisterCamera(_characterCamera);
         }
 
         protected override void Update()
@@ -43,72 +49,85 @@ namespace Wgs.FlipSide
             CalculateTraversalSpeed();
 
             ProcessMovement();
-            ProcessRoll();
-            ProcessSlide();
-            ProcessCrouch();
             ProcessSprint();
+            ProcessRoll();
+            ProcessCrouch();
             ProcessJump();
+            //ProcessLadderClimb();
             ProcessClimb();
+            ProcessStraddle();
 
-            CollisionFlags = CharacterController.Move(Velocity * Time.deltaTime);
+            //Move player
+            if (!Animancer.Animator.applyRootMotion) MoveCharacter(Velocity * Time.deltaTime);
+           
+            //Rotate player
+            ProcessRotation();
+        }
 
-            //Rotate character
-            if (IsClimbing)
+        protected virtual void MoveCharacter(Vector3 motion)
+        {
+            if (CharacterController.enabled)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-Hit.normal, transform.up), Time.deltaTime * _rotateSpeed);
+                CollisionFlags = CharacterController.Move(motion);
             }
             else
             {
-                if (MoveDirection != Vector3.zero)
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDirection, transform.up), Time.deltaTime * _rotateSpeed);
+                transform.position += motion;
             }
         }
 
         protected override void CheckGround()
         {
-            if (Time.time - _lastLostContactTime < 0.2f || IsClimbing) return;
+            if (Time.time - _lastLostContactTime < 0.2f || State == State.Climbing) return;
             base.CheckGround();
         }
 
         private void CalculateTraversalSpeed()
         {
             TraversalSpeed = _moveSpeed;
-            
-            if (IsCrouching) TraversalSpeed = _crouchSpeed;
-            if (IsSprinting) TraversalSpeed = _sprintSpeed;
-            if (IsRolling) TraversalSpeed = Mathf.Lerp(_rollSpeed, _moveSpeed, Time.time - _rollStartTime);
-            if (IsSliding) TraversalSpeed = Mathf.Lerp(_sprintSpeed, _crouchSpeed, Time.time - _slideStartTime);
+
+            if (_isCrouching) TraversalSpeed = _crouchSpeed;
+            if (_isSprinting) TraversalSpeed = _sprintSpeed;
+            if (_isRolling)
+                TraversalSpeed = Mathf.Lerp(_rollSpeed, _moveSpeed, Time.time - _rollStartTime);
+            if (_isSliding)
+                TraversalSpeed = Mathf.Lerp(_sprintSpeed, _crouchSpeed, Time.time - _slideStartTime);
         }
 
         protected override void LostGroundContact()
         {
+            State = State.InAir;
             CheckFall();
             base.LostGroundContact();
         }
 
         protected override void RegainedGroundContact()
         {
-            IsJumping = false;
+            State = State.Ground;
             TrySetState(_moveState);
             base.RegainedGroundContact();
         }
         
-        public void CheckFall()
+        private void OnAnimatorMove()
         {
-            if (IsJumping || IsClimbing) return;
-            
-            var fallRay = new Ray(transform.position, Vector3.down);
-            Debug.DrawRay(fallRay.origin, fallRay.direction * _minFallDistance, Color.red, 3);
-            if (Physics.Raycast(fallRay, _minFallDistance, _traversableLayers))
-            {
-                TrySetState(_moveState);
-            }
-            else
-            {
-                TrySetState(_fallState);
-                IsSliding = false;
-                IsRolling = false;
-            }
+            if (!Animancer.Animator.applyRootMotion) return;
+
+            Debug.LogFormat(LOG_FORMAT, nameof(OnAnimatorMove), "Moving character with RM");
+            MoveCharacter(Animancer.Animator.deltaPosition);
         }
+
+        private void OnDrawGizmos()
+        {
+            DrawClimbGizmos();
+        }
+    }
+    
+    public enum State
+    {
+        Ground, 
+        InAir,
+        Falling,
+        Climbing,
+        Hopping
     }
 }

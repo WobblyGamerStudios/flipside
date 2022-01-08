@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,24 +6,35 @@ namespace Wgs.FlipSide
 {
     public partial class PlayerCharacter : Character
     {
-        [Title("Jump")] 
-        [SerializeField] private ClipState _leftFootJumpState;
-        [SerializeField] private ClipState _rightFootJumpState;
-        [SerializeField] private float _jumpPower;
-        [SerializeField] private float _checkFallDelay = 1;
-        [SerializeField] private InputActionProperty _jumpAction;
+        private const string JUMP = "Jump";
         
-        public bool IsJumping { get; private set; }
+        [FoldoutGroup(JUMP), SerializeField] 
+        private ClipState _leftFootJumpState;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private ClipState _rightFootJumpState;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private float _jumpPower;
+        [FoldoutGroup(JUMP), SerializeField] 
+        private float _checkFallDelay = 1;
+        [FoldoutGroup(JUMP), SerializeField]
+        private InputActionProperty _jumpAction;
 
+        private bool _isJumping;
         private float _jumpTime;
         private bool _checkedForFall;
+        
+        private void InitializeJump()
+        {
+            _leftFootJumpState.Initialize(Animancer);
+            _rightFootJumpState.Initialize(Animancer);
+        }
         
         private void ProcessJump()
         {
             if (HasJumpStarted())
             {
+                _isJumping = true;
                 _isForceDetach = true;
-                IsJumping = true;
                 Velocity += MoveDirection + (Vector3.up * _jumpPower);
                 Debug.DrawRay(transform.position, Velocity.normalized * 1, Color.yellow, 5);
                 _jumpTime = Time.time;
@@ -42,21 +51,18 @@ namespace Wgs.FlipSide
                 }
             }
 
-            if (!IsJumping || _checkedForFall) return;
+            if (!_isJumping) return;
             
             if (Time.time - _jumpTime >= _checkFallDelay)
             {
-                _checkedForFall = true;
+                _isJumping = false;
                 CheckFall();
             }
         }
 
         private bool HasJumpStarted()
         {
-            return IsGrounded && 
-                   !IsClimbing &&
-                   !IsSliding &&
-                   !IsRolling &&
+            return IsGrounded &&
                    _jumpAction.action.triggered;
         }
     }
