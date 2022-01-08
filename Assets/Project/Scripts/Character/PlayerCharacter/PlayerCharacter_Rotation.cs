@@ -13,6 +13,8 @@ namespace Wgs.FlipSide
         
         private void ProcessRotation()
         {
+            if (_isStraddle) return;
+            
             var lookDirection = GetLookDirection();
             if (lookDirection == Vector3.zero) return;
             

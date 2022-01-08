@@ -32,6 +32,7 @@ namespace Wgs.FlipSide
             InitializeCrouch();
             InitializeJump();
             InitializeClimb();
+            InitializeStraddle();
 
             TrySetState(_moveState);
         }
@@ -54,6 +55,7 @@ namespace Wgs.FlipSide
             ProcessJump();
             //ProcessLadderClimb();
             ProcessClimb();
+            ProcessStraddle();
 
             //Move player
             if (!Animancer.Animator.applyRootMotion) MoveCharacter(Velocity * Time.deltaTime);

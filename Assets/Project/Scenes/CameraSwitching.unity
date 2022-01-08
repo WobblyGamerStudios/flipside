@@ -1174,8 +1174,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1.0561185}
-  m_Center: {x: 0, y: 0.5, z: 0.0015278985}
+  m_Size: {x: 1, y: 1, z: 0.98228455}
+  m_Center: {x: 0, y: 0.5, z: -0.035389144}
 --- !u!1001 &505043779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1227,6 +1227,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4462638684365942665, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462638684365942666, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462638684365942773, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462638684365942773, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
+      propertyPath: _straddleSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4462638684365942773, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
       propertyPath: _characterCamera
       value: 
@@ -1234,6 +1250,10 @@ PrefabInstance:
     - target: {fileID: 4462638684365942774, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462638684365942775, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ecd297679ee6ab498aa602912efd09c, type: 3}
@@ -1290,7 +1310,7 @@ MonoBehaviour:
   m_Path: {fileID: 1754302788}
   m_PathPosition: 0
   m_PositionUnits: 2
-  m_PathOffset: {x: 0, y: 0, z: -2.5}
+  m_PathOffset: {x: 0, y: 1.75, z: -2.5}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 1
@@ -1388,7 +1408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 2104420981}
-  m_PathPosition: 0.07765201
+  m_PathPosition: 0.1428284
   m_PositionUnits: 2
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -1918,7 +1938,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231586780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.75, y: 0, z: 1.5}
+  m_LocalPosition: {x: -3, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 6, z: 8.5}
   m_Children:
   - {fileID: 1398286807}
@@ -1977,7 +1997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d08eed688a0854abc206d09ac07b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraZone: {fileID: 1231586783}
+  _path: {fileID: 1754302788}
 --- !u!1 &1324447355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3139,7 +3159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754302787}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1231586781}
@@ -3283,7 +3303,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077618182}
-  m_LocalRotation: {x: 0.371863, y: -0.5115321, z: 0.2607847, w: 0.72941357}
+  m_LocalRotation: {x: 0.33621398, y: -0.5504247, z: 0.25716233, w: 0.7196252}
   m_LocalPosition: {x: 13.012617, y: 7.74937, z: -7.106389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

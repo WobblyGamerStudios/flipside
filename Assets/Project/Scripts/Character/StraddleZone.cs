@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 namespace Wgs.FlipSide
@@ -6,6 +7,9 @@ namespace Wgs.FlipSide
     public class StraddleZone : MonoBehaviour
     {
         private const string LOG_FORMAT = nameof(StraddleZone) + ".{0} :: {1}";
+
+        [SerializeField] private CinemachinePathBase _path;
+        public CinemachinePathBase Path => _path;
         
         private CameraZone _cameraZone;
 
@@ -37,7 +41,7 @@ namespace Wgs.FlipSide
                 return;
             }
             
-            character.BeginStraddle();
+            character.BeginStraddle(this);
         }
         
         private void ExitCameraZone(Collider other)
