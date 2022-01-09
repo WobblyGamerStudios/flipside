@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c7fb4d95d817441a7d8d0cf6bac1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keyboardUi: {fileID: 4565202205713242310}
-  _xboxGamepadUi: {fileID: 2789781199250796608}
-  _psGamepadUi: {fileID: 7172049983603630417}
+  _keyboardUi: {fileID: 3926972265896312423}
+  _xboxGamepadUi: {fileID: 4309556661809209620}
+  _psGamepadUi: {fileID: 610599916550627257}
 --- !u!1 &2789781200156949917
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2815536287044335161, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2969781687583099341, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
       propertyPath: m_IsActive
@@ -292,6 +292,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2815536287044335160, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
   m_PrefabInstance: {fileID: 118642173906765433}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &4309556661809209620
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2789781199250796608}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &4943534175227844456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -397,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2815536287044335161, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2969781687583099341, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
       propertyPath: m_IsActive
@@ -459,6 +471,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2815536286581373951, guid: 332b757b11865c847a39b4128ec5ae0a, type: 3}
   m_PrefabInstance: {fileID: 4943534175227844456}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &610599916550627257
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7172049983603630417}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &6595145737311158730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289119394947675038, guid: 215168f66200a544f90aee566e90cef9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289119394947675039, guid: 215168f66200a544f90aee566e90cef9, type: 3}
       propertyPath: m_Pivot.x
@@ -694,3 +718,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7289119394947675039, guid: 215168f66200a544f90aee566e90cef9, type: 3}
   m_PrefabInstance: {fileID: 6517549029442333528}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &3926972265896312423
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4565202205713242310}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

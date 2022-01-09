@@ -20,12 +20,14 @@ namespace Wgs.FlipSide
         {
             Debug.LogFormat(LOG_FORMAT, nameof(OnEnter), "");
             _ui.SetActive(true);
+            UiManager.Show();
         }
 
         public virtual void OnExit()
         {
             Debug.LogFormat(LOG_FORMAT, nameof(OnExit), "");
             _ui.SetActive(false);
+            UiManager.Hide();
         }
 
         public void OnActivate()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
@@ -8,6 +9,13 @@ namespace Wgs.FlipSide
     [AddComponentMenu("InputManager.FlipSide")]
     public class InputManager : Core.InputManager
     {
+        protected override IEnumerator InitializeManager()
+        {
+            yield return base.InitializeManager();
+            
+            OnInputUserChanged(_inputUser, InputUserChange.ControlSchemeChanged, _inputUser.pairedDevices[0]);
+        }
+
         protected override void OnInputUserChanged(InputUser user, InputUserChange change, InputDevice device)
         {
             if (change != InputUserChange.ControlSchemeChanged) return;

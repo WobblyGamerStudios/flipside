@@ -670,6 +670,7 @@ Transform:
   - {fileID: 9140829065408742156}
   - {fileID: 9140829065594593414}
   - {fileID: 6766082902447733786}
+  - {fileID: 8560913402128795246}
   m_Father: {fileID: 4462638684365942664}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1361,7 +1362,7 @@ MonoBehaviour:
     m_Bits: 55
   _checkDistance: 0.1
   State: 0
-  _playerCamera: {fileID: 0}
+  _characterCamera: {fileID: 0}
   _climbCheckDistance: 0.3
   _groundedCheckOffset: 0.3
   _inAirCheckOffset: 0.3
@@ -1455,6 +1456,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: -5941093166328420042, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+  _straddleState: {fileID: 3121894577213920942}
+  _straddleSpeed: 0.1
 --- !u!114 &4462638684365942666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2835,6 +2838,99 @@ MonoBehaviour:
     _Speed: 1
     _NormalizedStartTime: 0
     _applyRootMotion: 0
+--- !u!1 &8434683097997963542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8560913402128795246}
+  - component: {fileID: 3121894577213920942}
+  m_Layer: 0
+  m_Name: StraddleState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8560913402128795246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434683097997963542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4462638683677419640}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3121894577213920942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434683097997963542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906b0360cc5602743a527e832934e488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _linearMixerTransition:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - 0.25
+      - 0.65
+      - NaN
+      _Callbacks:
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 4462638684365942773}
+            m_TargetAssemblyTypeName: Wgs.FlipSide.PlayerCharacter, wgs.flipside
+            m_MethodName: SetFoot
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 1
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 4462638684365942773}
+            m_TargetAssemblyTypeName: Wgs.FlipSide.PlayerCharacter, wgs.flipside
+            m_MethodName: SetFoot
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      _Names: []
+    _Speed: 1
+    _Animations:
+    - {fileID: -203655887218126122, guid: 2e003ec951f65934a9f3f10241b5840b, type: 3}
+    - {fileID: 7400000, guid: aae9d987aaea0824ca0201a651656798, type: 2}
+    - {fileID: -203655887218126122, guid: aa22399af30ee454fb0722633e257475, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds:
+    - -1
+    - 0
+    - 1
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
 --- !u!1 &9140829065408742157
 GameObject:
   m_ObjectHideFlags: 0
