@@ -11,8 +11,8 @@ namespace Wgs.FlipSide
         
         [ReadOnly] public State State;
 
-        [SerializeField] private CinemachineVirtualCamera _characterCamera;
-        public CinemachineVirtualCamera CharacterCamera => _characterCamera;
+        [SerializeField] private Transform _cameraFollowTransform;
+        public Transform CameraFollowTransform => _cameraFollowTransform;
 
         public CollisionFlags CollisionFlags { get; private set; }
         public Vector3 Velocity { get; private set; }
@@ -21,7 +21,6 @@ namespace Wgs.FlipSide
         protected override void Start()
         {
             PlayerManager.RegisterPlayer(this);
-            CameraManager.RegisterCamera(_characterCamera, true);
             
             base.Start();
 
@@ -35,11 +34,6 @@ namespace Wgs.FlipSide
             InitializeStraddle();
 
             TrySetState(_moveState);
-        }
-
-        private void OnDestroy()
-        {
-            CameraManager.UnRegisterCamera(_characterCamera);
         }
 
         protected override void Update()

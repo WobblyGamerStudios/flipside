@@ -51,7 +51,7 @@ namespace Wgs.FlipSide
                 _currentStraddleZone.Path.EvaluatePositionAtUnit(_progress,
                     CinemachinePathBase.PositionUnits.Normalized) - transform.position;
 
-            if (offset.magnitude > 0.1f) CharacterController.Move(offset.normalized * Time.deltaTime);
+            CharacterController.Move(offset.normalized * Time.deltaTime);
             transform.rotation = _currentStraddleZone.Path.EvaluateOrientationAtUnit(_progress, CinemachinePathBase.PositionUnits.Normalized);
 
             _straddleState.Value = move.y;

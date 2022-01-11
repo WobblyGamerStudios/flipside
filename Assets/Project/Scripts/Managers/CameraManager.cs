@@ -9,13 +9,17 @@ namespace Wgs.FlipSide
 {
     public class CameraManager : Manager<CameraManager>
     {
+        [SerializeField] private CinemachineVirtualCamera _characterCamera;
+        public CinemachineVirtualCamera CharacterCamera => _characterCamera;
+
         public static Camera Main { get; private set; }
         public static Transform MainTransform { get; private set; }
         public static CinemachineBrain Brain { get; private set; }
-        [ShowInInspector]
+        
+        [ShowInInspector, ReadOnly]
         public static CinemachineVirtualCamera Current { get; private set; }
 
-        [ShowInInspector]
+        [ShowInInspector, ReadOnly]
         private static Dictionary<int, CinemachineVirtualCamera> _cameraLookUp =
             new Dictionary<int, CinemachineVirtualCamera>();
 
@@ -38,6 +42,7 @@ namespace Wgs.FlipSide
         private void OnPlayerRegistered(PlayerCharacter player)
         {
             _currentPlayer = player;
+            SwitchToCamera(_characterCamera);
         }
         
         protected override IEnumerator InitializeManager()
@@ -49,6 +54,8 @@ namespace Wgs.FlipSide
 
             Brain = Main.GetComponent<CinemachineBrain>();
             if (!Brain) yield break;
+            
+            RegisterCamera(_characterCamera, true);
 
             yield return base.InitializeManager();
         }
@@ -79,20 +86,21 @@ namespace Wgs.FlipSide
 
         public static void SwitchToCamera(CinemachineVirtualCamera camera)
         {
-            if (camera == null) camera = _currentPlayer.CharacterCamera;
+            if (camera == null) camera = Instance.CharacterCamera;
             
             var instanceId = camera.GetInstanceID();
             if (instanceId == -1) return;
 
             if (!_cameraLookUp.ContainsKey(instanceId)) return;
 
-            if (Current)
+            if (Current) Current.Priority = 0;
+
+            if (_currentPlayer)
             {
-                Current.LookAt = null;
-                Current.Priority = 0;
+                camera.Follow = _currentPlayer.CameraFollowTransform;
+                camera.LookAt = _currentPlayer.CameraFollowTransform;
             }
             
-            if (_currentPlayer) camera.LookAt = _currentPlayer.transform;
             camera.Priority = 10;
             Current = camera;
         }
