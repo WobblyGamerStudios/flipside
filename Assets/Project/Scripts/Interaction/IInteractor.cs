@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public interface IDetectable
+    public interface IInteractor
     {
-        void OnEnter();
-        void OnExit();
-        void OnActivate();
+        bool TryGetTargets(out List<IInteractable> targets);
     }
 }

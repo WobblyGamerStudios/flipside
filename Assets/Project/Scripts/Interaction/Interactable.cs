@@ -10,6 +10,7 @@ namespace Wgs.FlipSide
         private const string LOG_FORMAT = nameof(Interactable) + ".{0} :: {1}";
 
         [SerializeField] private GameObject _ui;
+        [SerializeField] private ActionType _actionType;
 
         private void Awake()
         {
@@ -20,7 +21,7 @@ namespace Wgs.FlipSide
         {
             Debug.LogFormat(LOG_FORMAT, nameof(OnEnter), "");
             _ui.SetActive(true);
-            UiManager.Show();
+            UiManager.Show(_actionType);
         }
 
         public virtual void OnExit()
