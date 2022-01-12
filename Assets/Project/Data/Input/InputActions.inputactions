@@ -43,7 +43,7 @@
                     "id": "829fcca6-9d7d-4d5b-922a-fb366a70ecd1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": ""
                 },
                 {
                     "name": "East",
@@ -81,6 +81,14 @@
                     "name": "RightShoulder",
                     "type": "Button",
                     "id": "c54f6914-f4c2-4421-b17e-10fe9253a662",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "ab0259c2-35b6-4094-9f60-1d3e10e3d98f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -249,6 +257,17 @@
                     "processors": "",
                     "groups": "PlayStationGamepad;XboxGamepad",
                     "action": "RightShoulder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c7f9a95-9b97-48e1-b600-a0cc2bc61e3c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Space",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
