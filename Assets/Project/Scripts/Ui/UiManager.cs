@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Wgs.Core;
 
 namespace Wgs.FlipSide
@@ -8,51 +10,44 @@ namespace Wgs.FlipSide
     {
         private const string LOG_FORMAT = nameof(UiManager) + ".{0} :: {1}";
 
-        [SerializeField] private CanvasGroup _keyboardUi;
-        [SerializeField] private CanvasGroup _xboxGamepadUi;
-        [SerializeField] private CanvasGroup _psGamepadUi;
+        [SerializeField] private InputUi _keyboardUi;
+        [SerializeField] private InputUi _xboxGamepadUi;
+        [SerializeField] private InputUi _psGamepadUi;
 
-        public static CanvasGroup ActiveInputUi { get; private set; }
+        public static InputUi CurrentInputUi { get; private set; }
 
-        private static bool _isShowing;
-        
+        public static bool IsActive => CurrentInputUi && CurrentInputUi.IsActive;
+
         protected override IEnumerator InitializeManager()
         {
-            InputManager.OnControlSchemeChangedEvent += OnControlSchemeChanged;
-
-            _keyboardUi.alpha = 0;
-            _xboxGamepadUi.alpha = 0;
-            _psGamepadUi.alpha = 0;
+            _keyboardUi.Hide();
+            _xboxGamepadUi.Hide();
+            _psGamepadUi.Hide();
             
             return base.InitializeManager();
         }
 
-        private void OnControlSchemeChanged(ControlScheme scheme)
+        public static void Show(string displayName, string layoutName, string controlPath)
         {
-            Debug.LogFormat(LOG_FORMAT, nameof(OnControlSchemeChanged), $"InputManager control scheme changed to {scheme}");
+            if (string.IsNullOrEmpty(layoutName) || string.IsNullOrEmpty(controlPath)) return;
 
-            if (ActiveInputUi) ActiveInputUi.alpha = 0;
-            ActiveInputUi = scheme switch
+            if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "DualShockGamepad"))
             {
-                ControlScheme.Keyboard => _keyboardUi,
-                ControlScheme.XboxGamepad => _xboxGamepadUi,
-                ControlScheme.PlayStationGamepad => _psGamepadUi,
-                _ => null
-            };
-            
-            if (_isShowing && ActiveInputUi) ActiveInputUi.alpha = 1;
-        }
-
-        public static void Show()
-        {
-            if (ActiveInputUi) ActiveInputUi.alpha = 1;
-            _isShowing = true;
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing PS4 controller");
+            }
+            else if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Gamepad"))
+            {
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing gamepad");
+            }
+            else if(InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Keyboard"))
+            {
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing keyboard and mouse");
+            }
         }
 
         public static void Hide()
         {
-            if (ActiveInputUi) ActiveInputUi.alpha = 0;
-            _isShowing = false;
+            if (CurrentInputUi) CurrentInputUi.Hide();
         }
     }
 }
