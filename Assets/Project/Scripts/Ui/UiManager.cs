@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Wgs.Core;
 
 namespace Wgs.FlipSide
@@ -15,11 +17,9 @@ namespace Wgs.FlipSide
         public static InputUi CurrentInputUi { get; private set; }
 
         public static bool IsActive => CurrentInputUi && CurrentInputUi.IsActive;
-        
+
         protected override IEnumerator InitializeManager()
         {
-            InputManager.OnControlSchemeChangedEvent += OnControlSchemeChanged;
-
             _keyboardUi.Hide();
             _xboxGamepadUi.Hide();
             _psGamepadUi.Hide();
@@ -27,23 +27,22 @@ namespace Wgs.FlipSide
             return base.InitializeManager();
         }
 
-        private void OnControlSchemeChanged(ControlScheme scheme)
+        public static void Show(string displayName, string layoutName, string controlPath)
         {
-            Debug.LogFormat(LOG_FORMAT, nameof(OnControlSchemeChanged), $"InputManager control scheme changed to {scheme}");
+            if (string.IsNullOrEmpty(layoutName) || string.IsNullOrEmpty(controlPath)) return;
 
-            if (CurrentInputUi) CurrentInputUi.Hide();
-            CurrentInputUi = scheme switch
+            if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "DualShockGamepad"))
             {
-                ControlScheme.Keyboard => _keyboardUi,
-                ControlScheme.XboxGamepad => _xboxGamepadUi,
-                ControlScheme.PlayStationGamepad => _psGamepadUi,
-                _ => null
-            };
-        }
-
-        public static void Show(ActionType type)
-        {
-            if (CurrentInputUi) CurrentInputUi.Show(type);
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing PS4 controller");
+            }
+            else if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Gamepad"))
+            {
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing gamepad");
+            }
+            else if(InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Keyboard"))
+            {
+                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing keyboard and mouse");
+            }
         }
 
         public static void Hide()

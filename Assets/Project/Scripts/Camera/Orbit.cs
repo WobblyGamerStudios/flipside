@@ -1,14 +1,14 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace Wgs.FlipSide
 {
 	[RequireComponent(typeof(CinemachineVirtualCamera))]
 	public class Orbit : MonoBehaviour
 	{
-		[SerializeField] private InputActionProperty _controllerOrbitAction;
+		[SerializeField] private InputActionReference _lookAction;
 		[SerializeField] private bool _invertHorizontal;
 		[SerializeField] private bool _invertVertical;
 		[SerializeField] private float _horizontalSpeed = 100;
@@ -28,7 +28,7 @@ namespace Wgs.FlipSide
 
 		private void Update()
 		{
-			var lookMovement = _controllerOrbitAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
+			var lookMovement = _lookAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
 			
 			lookMovement.y = _invertVertical ? -lookMovement.y : lookMovement.y;
 			lookMovement.x = (_invertHorizontal ? -lookMovement.x : lookMovement.x) * 180f; 
