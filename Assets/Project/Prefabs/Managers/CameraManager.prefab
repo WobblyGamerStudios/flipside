@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: m_CollideAgainst.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2872704296736269390, guid: 3afeab82c39582744bdd933f62c01800, type: 3}
+      propertyPath: _lookAction
+      value: 
+      objectReference: {fileID: -6812995637585491297, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3afeab82c39582744bdd933f62c01800, type: 3}
 --- !u!4 &6208571689384442699 stripped
