@@ -1334,6 +1334,7 @@ GameObject:
   - component: {fileID: 4462638684365942773}
   - component: {fileID: 4462638684365942666}
   - component: {fileID: 4462638684365942665}
+  - component: {fileID: 1213483323}
   m_Layer: 3
   m_Name: Character
   m_TagString: Player
@@ -1413,7 +1414,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
-    m_Reference: {fileID: 2049412580501723331, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+    m_Reference: {fileID: -4650133887247397334, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _slideState: {fileID: 9140829065603394435}
   _minSlideThreshold: 1
   _slideSize:
@@ -1435,7 +1436,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
-    m_Reference: {fileID: -6273983711228334387, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+    m_Reference: {fileID: 5173832741977907925, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _moveState: {fileID: 4462638684797277444}
   _moveSpeed: 3.5
   _friction: 15
@@ -1452,7 +1453,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
-    m_Reference: {fileID: 2620825069234744408, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+    m_Reference: {fileID: 2209436278099366597, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _rollState: {fileID: 9140829065408742155}
   _rollSpeed: 7
   _rollDurationOffset: 0
@@ -1469,7 +1470,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
-    m_Reference: {fileID: -5225246167540387587, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+    m_Reference: {fileID: 9116884144455109265, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _rotateSpeed: 20
   _sprintState: {fileID: 4462638684752378114}
   _sprintSpeed: 6
@@ -1486,7 +1487,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
-    m_Reference: {fileID: -5941093166328420042, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
+    m_Reference: {fileID: 8462949634347189248, guid: 65bd33aef711d0049b79ae0831f1cd90, type: 3}
   _straddleState: {fileID: 3121894577213920942}
   _straddleSpeed: 0.1
 --- !u!114 &4462638684365942666
@@ -1522,6 +1523,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1213483323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4462638684365942774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35243c7bd224b0b4fb7fa87184ba75af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _offset: {x: 0, y: 0.5, z: 0}
+  _radius: 1.5
+  _resultBufferSize: 10
 --- !u!1 &4462638684413953157
 GameObject:
   m_ObjectHideFlags: 0

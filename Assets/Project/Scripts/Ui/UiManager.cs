@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Wgs.Core;
 
 namespace Wgs.FlipSide
@@ -7,52 +9,57 @@ namespace Wgs.FlipSide
     public class UiManager : Manager<UiManager>
     {
         private const string LOG_FORMAT = nameof(UiManager) + ".{0} :: {1}";
-
-        [SerializeField] private CanvasGroup _keyboardUi;
-        [SerializeField] private CanvasGroup _xboxGamepadUi;
-        [SerializeField] private CanvasGroup _psGamepadUi;
-
-        public static CanvasGroup ActiveInputUi { get; private set; }
-
-        private static bool _isShowing;
         
+        [SerializeField] private KeyboardMouseInputUi _keyboardUi;
+        [SerializeField] private GamepadInputUi _gamepadUi;
+        
+        public static IInputUi CurrentInputUi { get; private set; }
+
         protected override IEnumerator InitializeManager()
         {
-            InputManager.OnControlSchemeChangedEvent += OnControlSchemeChanged;
-
-            _keyboardUi.alpha = 0;
-            _xboxGamepadUi.alpha = 0;
-            _psGamepadUi.alpha = 0;
+            // _keyboardUi.Hide();
+            // _xboxGamepadUi.Hide();
+            // _psGamepadUi.Hide();
             
             return base.InitializeManager();
         }
 
-        private void OnControlSchemeChanged(ControlScheme scheme)
-        {
-            Debug.LogFormat(LOG_FORMAT, nameof(OnControlSchemeChanged), $"InputManager control scheme changed to {scheme}");
+        #region InputUi
 
-            if (ActiveInputUi) ActiveInputUi.alpha = 0;
-            ActiveInputUi = scheme switch
-            {
-                ControlScheme.Keyboard => _keyboardUi,
-                ControlScheme.XboxGamepad => _xboxGamepadUi,
-                ControlScheme.PlayStationGamepad => _psGamepadUi,
-                _ => null
-            };
+        public void DisplayInputUi(string actionName, string displayName, string layoutName, string controlPath)
+        {
+            HideInputUi();
             
-            if (_isShowing && ActiveInputUi) ActiveInputUi.alpha = 1;
+            if (string.IsNullOrEmpty(displayName) || string.IsNullOrEmpty(layoutName) || string.IsNullOrEmpty(controlPath)) return;
+
+            if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "DualShockGamepad"))
+            {
+                if (_gamepadUi) _gamepadUi.DisplayGamepadUi(actionName, PlatformInputTypes.Ps4, controlPath);
+            }
+            else if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Gamepad"))
+            {
+                if (_gamepadUi) _gamepadUi.DisplayGamepadUi(actionName, PlatformInputTypes.Xbox, controlPath);
+            }
+            else if(InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Keyboard"))
+            {
+                if(_keyboardUi) _keyboardUi.DisplayKeyBoardUi(displayName, controlPath);
+            }
         }
 
-        public static void Show()
+        public void HideInputUi()
         {
-            if (ActiveInputUi) ActiveInputUi.alpha = 1;
-            _isShowing = true;
+            if (_gamepadUi) _gamepadUi.HideGamepadUi();
+            if (_keyboardUi) _keyboardUi.HideKeyboardUi();
         }
+        
+        #endregion InputUi
 
-        public static void Hide()
-        {
-            if (ActiveInputUi) ActiveInputUi.alpha = 0;
-            _isShowing = false;
-        }
+    }
+    
+    public enum PlatformInputTypes
+    {
+        Ps4,
+        Xbox,
+        Nintendo
     }
 }
