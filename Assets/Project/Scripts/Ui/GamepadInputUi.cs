@@ -1,47 +1,61 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public class GamepadInputUi : InputUi
+    [RequireComponent(typeof(CanvasGroup))]
+    public class GamepadInputUi : MonoBehaviour
     {
-        [SerializeField] private ActionHighlight _northHighlight;
-        [SerializeField] private ActionHighlight _eastHighlight;
-        [SerializeField] private ActionHighlight _southHighlight;
-        [SerializeField] private ActionHighlight _westHighlight;
+        [SerializeField] private PadUi _padUi;
+        [SerializeField] private InputIconsList _inputIcons;
 
-        public override void Show(ActionType type)
+        private CanvasGroup _canvasGroup;
+
+        private void Awake()
         {
-            _northHighlight.Highlight.SetActive(false);
-            _eastHighlight.Highlight.SetActive(false);
-            _southHighlight.Highlight.SetActive(false);
-            _westHighlight.Highlight.SetActive(false);
-
-            switch (type)
-            {
-                case ActionType.None:
-                    break;
-                case ActionType.Interact:
-                    _westHighlight.Highlight.SetActive(true);
-                    _westHighlight.Label.text = type.ToString();
-                    break;
-                case ActionType.Drop:
-                    _eastHighlight.Highlight.SetActive(true);
-                    _eastHighlight.Label.text = type.ToString();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-            
-            base.Show(type);
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0;
         }
 
-        [Serializable]
-        public class ActionHighlight
+        public void DisplayGamepadUi(string actionName, PlatformInputTypes inputTypes, string controlName)
         {
-            public GameObject Highlight;
-            public TMP_Text Label;
+            switch (controlName)
+            {
+                case "buttonSouth":
+                    _padUi.HighlightButton(actionName, PadUi.Direction.South);
+                    break;
+                case "buttonNorth": 
+                    _padUi.HighlightButton(actionName, PadUi.Direction.North);
+                    break;
+                case "buttonEast": 
+                    _padUi.HighlightButton(actionName, PadUi.Direction.East);
+                    break;
+                case "buttonWest": 
+                    _padUi.HighlightButton(actionName, PadUi.Direction.West);
+                    break;
+                case "start": break;
+                case "select": break;
+                case "leftTrigger": break;
+                case "rightTrigger": break;
+                case "leftShoulder": break;
+                case "rightShoulder": break;
+                case "dpad": break;
+                case "dpad/up": break;
+                case "dpad/down": break;
+                case "dpad/left": break;
+                case "dpad/right": break;
+                case "leftStick": break;
+                case "rightStick": break;
+                case "leftStickPress": break;
+                case "rightStickPress": break;
+            }
+            
+            _canvasGroup.alpha = 1;
+        }
+        
+        public void HideGamepadUi()
+        {
+            _canvasGroup.alpha = 0;
         }
     }
 }

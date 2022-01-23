@@ -9,45 +9,57 @@ namespace Wgs.FlipSide
     public class UiManager : Manager<UiManager>
     {
         private const string LOG_FORMAT = nameof(UiManager) + ".{0} :: {1}";
-
-        [SerializeField] private InputUi _keyboardUi;
-        [SerializeField] private InputUi _xboxGamepadUi;
-        [SerializeField] private InputUi _psGamepadUi;
-
-        public static InputUi CurrentInputUi { get; private set; }
-
-        public static bool IsActive => CurrentInputUi && CurrentInputUi.IsActive;
+        
+        [SerializeField] private KeyboardMouseInputUi _keyboardUi;
+        [SerializeField] private GamepadInputUi _gamepadUi;
+        
+        public static IInputUi CurrentInputUi { get; private set; }
 
         protected override IEnumerator InitializeManager()
         {
-            _keyboardUi.Hide();
-            _xboxGamepadUi.Hide();
-            _psGamepadUi.Hide();
+            // _keyboardUi.Hide();
+            // _xboxGamepadUi.Hide();
+            // _psGamepadUi.Hide();
             
             return base.InitializeManager();
         }
 
-        public static void Show(string displayName, string layoutName, string controlPath)
+        #region InputUi
+
+        public void DisplayInputUi(string actionName, string displayName, string layoutName, string controlPath)
         {
-            if (string.IsNullOrEmpty(layoutName) || string.IsNullOrEmpty(controlPath)) return;
+            HideInputUi();
+            
+            if (string.IsNullOrEmpty(displayName) || string.IsNullOrEmpty(layoutName) || string.IsNullOrEmpty(controlPath)) return;
 
             if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "DualShockGamepad"))
             {
-                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing PS4 controller");
+                if (_gamepadUi) _gamepadUi.DisplayGamepadUi(actionName, PlatformInputTypes.Ps4, controlPath);
             }
             else if (InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Gamepad"))
             {
-                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing gamepad");
+                if (_gamepadUi) _gamepadUi.DisplayGamepadUi(actionName, PlatformInputTypes.Xbox, controlPath);
             }
             else if(InputSystem.IsFirstLayoutBasedOnSecond(layoutName, "Keyboard"))
             {
-                Debug.LogFormat(LOG_FORMAT, nameof(Show), "Showing keyboard and mouse");
+                if(_keyboardUi) _keyboardUi.DisplayKeyBoardUi(displayName, controlPath);
             }
         }
 
-        public static void Hide()
+        public void HideInputUi()
         {
-            if (CurrentInputUi) CurrentInputUi.Hide();
+            if (_gamepadUi) _gamepadUi.HideGamepadUi();
+            if (_keyboardUi) _keyboardUi.HideKeyboardUi();
         }
+        
+        #endregion InputUi
+
+    }
+    
+    public enum PlatformInputTypes
+    {
+        Ps4,
+        Xbox,
+        Nintendo
     }
 }

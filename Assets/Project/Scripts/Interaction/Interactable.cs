@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Wgs.Core;
@@ -32,18 +31,23 @@ namespace Wgs.FlipSide
             if (bindingIndex == -1) return;
             displayString = _actionReference.action.GetBindingDisplayString(bindingIndex, out deviceLayoutName, out controlPath);
 
-            Debug.LogFormat(LOG_FORMAT, nameof(OnEnter), $"Display : {displayString}\n" +
+            Debug.LogFormat(LOG_FORMAT, nameof(OnEnter), $"Name : {_actionReference.action.name}\n" +
+                                                         $"Display : {displayString}\n" +
                                                          $"Layout : {deviceLayoutName}\n" +
                                                          $"Path : {controlPath}");
             
             _ui.SetActive(true);
-            UiManager.Show(displayString, deviceLayoutName, controlPath);
+            if (UiManager.HasInstance) UiManager.Instance.DisplayInputUi(
+                _actionReference.action.name, 
+                displayString, 
+                deviceLayoutName, 
+                controlPath);
         }
 
         public virtual void OnExit()
         {
             _ui.SetActive(false);
-            UiManager.Hide();
+            if (UiManager.HasInstance) UiManager.Instance.HideInputUi();
         }
 
         public void OnActivate()
