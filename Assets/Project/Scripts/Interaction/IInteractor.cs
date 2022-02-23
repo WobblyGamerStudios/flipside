@@ -7,5 +7,7 @@ namespace Wgs.FlipSide
     public interface IInteractor
     {
         bool TryGetTargets(out List<IInteractable> targets);
+        void OnEnter();
+        void OnExit();
     }
 }
