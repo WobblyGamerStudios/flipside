@@ -1,43 +1,78 @@
-using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Wgs.Core;
 
 namespace Wgs.FlipSide
 {
-	[RequireComponent(typeof(CinemachineVirtualCamera))]
-	public class Orbit : MonoBehaviour
+	public class Orbit : MonoBehaviour, AxisState.IInputAxisProvider
 	{
 		[SerializeField] private InputActionReference _lookAction;
-		[SerializeField] private bool _invertHorizontal;
-		[SerializeField] private bool _invertVertical;
-		[SerializeField] private float _horizontalSpeed = 100;
-		[SerializeField] private float _verticalSpeed = 1;
-        
-		private CinemachineVirtualCamera _camera;
-        
-		private void OnValidate()
+		[SerializeField] private float _gamepadInputMultiplier = 1;
+		
+		private Vector2 _lookValue;
+		private string _currentInputScheme;
+
+		private void OnEnable()
 		{
-			if (!_camera) _camera = GetComponent<CinemachineVirtualCamera>();
+			InputManager.OnInputChangeEvent += InputChanged;
 		}
 
-		private void Awake()
+		private void OnDisable()
 		{
-			if (!_camera) _camera = GetComponent<CinemachineVirtualCamera>();
+			InputManager.OnInputChangeEvent -= InputChanged;
 		}
-
-		private void Update()
+		
+		private void InputChanged(string schemeName, string deviceName)
 		{
-			var lookMovement = _lookAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
+			_currentInputScheme = schemeName;
 			
-			lookMovement.y = _invertVertical ? -lookMovement.y : lookMovement.y;
-			lookMovement.x = (_invertHorizontal ? -lookMovement.x : lookMovement.x) * 180f; 
+			switch (_currentInputScheme)
+			{
+				case "Keyboard":
+					Cursor.lockState = CursorLockMode.Locked;
+					break;
+				case "Gamepad":
+					Cursor.lockState = CursorLockMode.None;
+					break;
+			}
+		}
 
-			var component = _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim) as CinemachinePOV;
-			if (component == null) return;
-            
-			component.m_HorizontalAxis.Value += lookMovement.x * _verticalSpeed * Time.deltaTime;
-			component.m_VerticalAxis.Value += lookMovement.y * _horizontalSpeed * Time.deltaTime;
+		public float GetAxisValue(int axis)
+		{
+			if (!Application.isFocused)
+			{
+				_lookValue = Vector2.zero;
+				return 0 ;
+			}
+
+			_lookValue = _lookAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
+			
+			switch (axis)
+			{
+				case 0 :
+					return _currentInputScheme switch
+					{
+						//X axis
+						"Keyboard" => _lookValue.x,
+						"Gamepad" => _lookValue.x * _gamepadInputMultiplier,
+						_ => 0
+					};
+				case 1:
+					//Y axis
+					return _currentInputScheme switch
+					{
+						//X axis
+						"Keyboard" => _lookValue.y,
+						"Gamepad" => _lookValue.y * _gamepadInputMultiplier,
+						_ => 0
+					};
+				case 2 :
+					//Zoom
+					break;
+			}
+			
+			return 0;
 		}
 	}
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Wgs.FlipSide
 {
-    public class LadderClimbState : LinearState
-    {
-        [SerializeField] private RootMotionClipTransition _ladderClimbUp;
-
-        public void LadderClimbFinish()
-        {
-            if (!IsActive) return;
-            _animancer.Play(_ladderClimbUp);
-        }
-    }
+    // public class LadderClimbState : LinearState
+    // {
+    //     [SerializeField] private RootMotionClipTransition _ladderClimbUp;
+    //
+    //     public void LadderClimbFinish()
+    //     {
+    //         if (!IsActive) return;
+    //         _animancer.Play(_ladderClimbUp);
+    //     }
+    // }
 }
